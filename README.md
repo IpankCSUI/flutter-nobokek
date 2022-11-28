@@ -13,9 +13,18 @@
 
 Platform (website dan aplikasi) ini dibuat untuk membantu mempermudah pengelolaan keuangan pengguna atau user khususnya bagi mahasiswa. Pada platform ini, pengguna dapat mencatat pengeluaran serta pendapatan kemudian melihat perkembangannya perminggu dengan penyajian yang menarik dan mudah dimengerti. Platform ini juga menyediakan info terkini mengenai hal-hal yang terkait dengan dunia ekonomi dan finansial. Terdapat juga forum untuk pengguna melakukan posting.
 - Peran atau aktor pengguna aplikasi :
-1. Logged in User : Melihat home yang berisi info terkini dan penjelasan website, menambahkan pemasukkan, pengeluaran, dan target pengeluaran, melihat grafik data perbulan, Melihat total saldo dan detail income dan outcome, Melihat dan melakukan Forum komunitas untuk posting, Memposting keluhan di halaman Contact Us
-2. Guest : Melihat home yang berisi info terkini dan penjelasan website dan melihat forum komunitas
-3. Admin : Melihat daftar keluhan yang diposting oleh user dari halaman Contact Us, dan menghapus keluhan yang sudah selesai diatasi.
+1. Logged in User : 
+- Melihat home yang berisi info terkini dan penjelasan website 
+- Menambahkan pemasukkan, pengeluaran, dan target pengeluaran 
+- Melihat grafik data perbulan
+- Melihat total saldo dan detail income dan outcome, Melihat dan melakukan Forum komunitas untuk posting 
+- Memposting keluhan di halaman Contact Us
+2. Guest : 
+- Melihat home yang berisi info terkini dan penjelasan website 
+- Melihat forum komunitas
+3. Admin : 
+- Melihat daftar keluhan yang diposting oleh user dari halaman Contact Us
+- Menghapus keluhan yang sudah selesai diatasi.
 
 ## 📝 Daftar fitur atau modul yang diimplementasikan beserta kontrak kinerja per anggota kelompok 📝
 1. Autentikasi pengguna (Login, Sign Up)
