@@ -9,7 +9,7 @@
 
 ## 📃 Deskripsi aplikasi (nama aplikasi, fungsi aplikasi, dan peran atau aktor pengguna aplikasi) 📃
 - Nama Aplikasi : NoBokek
-- Deskripsi aplikasi :
+- Deskripsi Aplikasi :
 
 Platform (website dan aplikasi) ini dibuat untuk membantu mempermudah pengelolaan keuangan pengguna atau user khususnya bagi mahasiswa. Pada platform ini, pengguna dapat mencatat pengeluaran serta pendapatan kemudian melihat perkembangannya perminggu dengan penyajian yang menarik dan mudah dimengerti. Platform ini juga menyediakan info terkini mengenai hal-hal yang terkait dengan dunia ekonomi dan finansial. Terdapat juga forum untuk pengguna melakukan posting.
 
