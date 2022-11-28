@@ -24,5 +24,5 @@ Platform (website dan aplikasi) ini dibuat untuk membantu mempermudah pengelolaa
 - Menambahkan dependency http ke proyek, dependency ini digunakan untuk bertukar data melalui HTTP request, seperti GET, POST, PUT, dan lain-lain.
 - Membuat model dan menambahkan keyword `required` pada setiap parameter class pada bagian constructor, sesuai dengan respons dari data yang berasal dari web service proyek tengah semester.
 - Membuat http request ke web service menggunakan dependency http.
-Mengkonversikan objek yang didapatkan dari web service ke model yang telah kita buat di langkah kedua.
+- Mengkonversikan objek yang didapatkan dari web service ke model yang telah kita buat di langkah kedua.
 - Menampilkan data yang telah dikonversi ke aplikasi dengan `FutureBuilder`.
