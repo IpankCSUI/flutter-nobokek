@@ -1,6 +1,10 @@
 import "package:flutter/material.dart";
 import 'package:flutter_nobokek/commons/styles/color_palettes.dart';
+import 'package:flutter_nobokek/page/add.dart';
+import 'package:flutter_nobokek/page/forum.dart';
+import 'package:flutter_nobokek/page/home_page.dart';
 import 'package:flutter_nobokek/page/report_page.dart';
+import 'package:flutter_nobokek/page/statistic.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -25,12 +29,12 @@ class _MainPageState extends State<MainPage> {
       child: Scaffold(
         body: PageView(
           controller: _pageViewController,
-          children: <Widget>[
-            Container(color: Colors.red),
-            Container(color: Colors.green),
-            Container(color: Colors.blue),
-            const MyReportPage(),
-            Container(color: Colors.white),
+          children: const <Widget>[
+            MyAddPage(),
+            MyStatisticPage(),
+            MyHomePage(),
+            MyReportPage(),
+            MyForumPage(),
           ],
           onPageChanged: (index) {
             setState(() {
@@ -45,7 +49,7 @@ class _MainPageState extends State<MainPage> {
             _pageViewController.animateToPage(
               index,
               duration: const Duration(milliseconds: 200),
-              curve: Curves.bounceOut,
+              curve: Curves.linear,
             );
           },
           showUnselectedLabels: true,

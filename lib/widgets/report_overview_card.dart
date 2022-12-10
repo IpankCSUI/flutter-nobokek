@@ -33,7 +33,7 @@ class ReportOverviewCard extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            "Rp. 20.500.000",
+            amount,
             style: Theme.of(context)
                 .textTheme
                 .subtitle1!
