@@ -1,86 +1,130 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_nobokek/widgets/drawer.dart';
+import "package:flutter/material.dart";
+import 'package:flutter_nobokek/commons/styles/color_palettes.dart';
+import 'package:flutter_nobokek/widgets/big_text_field.dart';
+import 'package:flutter_nobokek/widgets/custom_text_field.dart';
+import 'package:flutter_nobokek/widgets/forum_card.dart';
+import 'package:flutter_nobokek/widgets/yellow_button.dart';
 
 class MyForumPage extends StatefulWidget {
   const MyForumPage({super.key});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   @override
   State<MyForumPage> createState() => _MyForumPageState();
 }
 
 class _MyForumPageState extends State<MyForumPage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+  String? nama;
+  String? jurusan;
+  String? angkatan;
+  String? pendapat;
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyForumPage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text('Forum'),
-      ),
-      drawer: LabDrawer(),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.only(left: 24.0, right: 24.0, top: 24.0),
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
             Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+              "Hello, Ocit!",
+              style: Theme.of(context)
+                  .textTheme
+                  .headline6!
+                  .copyWith(fontWeight: FontWeight.bold),
             ),
+            const SizedBox(height: 48),
+            Text(
+              "Nama",
+              style: Theme.of(context)
+                  .textTheme
+                  .subtitle1!
+                  .copyWith(fontWeight: FontWeight.w500),
+            ),
+            const SizedBox(height: 8),
+            CustomTextField(
+              onChanged: (text) {
+                nama = text;
+              },
+            ),
+            const SizedBox(height: 16),
+            Text(
+              "Jurusan",
+              style: Theme.of(context)
+                  .textTheme
+                  .subtitle1!
+                  .copyWith(fontWeight: FontWeight.w500),
+            ),
+            const SizedBox(height: 8),
+            CustomTextField(
+              onChanged: (text) {
+                jurusan = text;
+              },
+            ),
+            const SizedBox(height: 16),
+            Text(
+              "Angkatan",
+              style: Theme.of(context)
+                  .textTheme
+                  .subtitle1!
+                  .copyWith(fontWeight: FontWeight.w500),
+            ),
+            const SizedBox(height: 8),
+            CustomTextField(
+              onChanged: (text) {
+                angkatan = text;
+              },
+            ),
+            const SizedBox(height: 16),
+            Text(
+              "Pendapat",
+              style: Theme.of(context)
+                  .textTheme
+                  .subtitle1!
+                  .copyWith(fontWeight: FontWeight.w500),
+            ),
+            const SizedBox(height: 8),
+            BigTextField(
+              onChanged: (text) {
+                pendapat = text;
+              },
+            ),
+            const SizedBox(height: 16),
+            Center(
+              child: YellowButton(
+                label: "Tambah",
+                onPressed: () {},
+              ),
+            ),
+            const SizedBox(height: 24),
+            Text(
+              "Daftar Forum",
+              style: Theme.of(context)
+                  .textTheme
+                  .subtitle1!
+                  .copyWith(fontWeight: FontWeight.w500),
+            ),
+            const SizedBox(height: 8),
+            GridView.builder(
+              shrinkWrap: true,
+              primary: false,
+              itemCount: 4,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 16,
+                crossAxisSpacing: 16,
+              ),
+              itemBuilder: ((context, index) {
+                return const ForumCard(
+                  nama: "-Wakway",
+                  pesan: "Cemas ko dekk bek bek bek",
+                );
+              }),
+            ),
+            const SizedBox(height: 8),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

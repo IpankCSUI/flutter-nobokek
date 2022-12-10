@@ -14,10 +14,11 @@ class YellowButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: onPressed,
-      style: ButtonStyle(
-          shape: MaterialStateProperty.all(const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(30)))),
-          backgroundColor: MaterialStateProperty.all(ColorPalettes.freshLemon)),
+      style: TextButton.styleFrom(
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8))),
+        backgroundColor: ColorPalettes.freshLemon,
+      ),
       child: Text(
         label,
         style: const TextStyle(color: ColorPalettes.grey),
