@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_nobokek/drawer.dart';
+import 'package:flutter_nobokek/widgets/drawer.dart';
 
 class MyForumPage extends StatefulWidget {
   const MyForumPage({super.key});
