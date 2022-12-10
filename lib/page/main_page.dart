@@ -15,7 +15,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   final _pageViewController = PageController();
-  int _selectedPage = 0;
+  int _selectedPage = 2;
 
   @override
   void dispose() {
