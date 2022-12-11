@@ -120,13 +120,13 @@ class MyReportPage extends StatelessWidget {
                               child: Column(
                                 children: <Widget>[
                                   TextFormField(
-                                    decoration: InputDecoration(
+                                    decoration: const InputDecoration(
                                       labelText: 'Target',
                                       icon: Icon(Icons.attach_money),
                                     ),
                                   ),
                                   TextFormField(
-                                    decoration: InputDecoration(
+                                    decoration: const InputDecoration(
                                       labelText: 'Description',
                                       icon: Icon(Icons.message),
                                     ),
@@ -142,13 +142,6 @@ class MyReportPage extends StatelessWidget {
                                   Navigator.pop(context);
                                 }),
                           ],
-                          //  actions: [
-                          //   RaisedButton(
-                          //       child: Text("Submit"),
-                          //       onPressed: () {
-                          //         // your code
-                          //       })
-                          // ],
                         );
                       });
                 },
