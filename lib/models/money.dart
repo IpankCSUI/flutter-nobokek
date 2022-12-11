@@ -10,9 +10,9 @@ String moneyToJson(List<Money> data) => json.encode(List<dynamic>.from(data.map(
 
 class Money {
     Money({
-        this.model,
-        this.pk,
-        this.fields,
+        required this.model,
+        required this.pk,
+        required this.fields,
     });
 
     String model;
@@ -34,12 +34,12 @@ class Money {
 
 class Fields {
     Fields({
-        this.user,
-        this.income,
+        required this.user,
+        required this.income,
         this.outcome,
-        this.descIn,
+        required this.descIn,
         this.descOut,
-        this.date,
+        required this.date,
         this.note,
     });
 

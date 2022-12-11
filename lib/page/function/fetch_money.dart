@@ -1,4 +1,4 @@
-import 'package:pas/models/money.dart';
+import 'package:flutter_nobokek/models/money.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
