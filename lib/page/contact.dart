@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_nobokek/drawer.dart';
+import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 
 class MyContactPage extends StatefulWidget {
   const MyContactPage({super.key});
@@ -18,69 +20,195 @@ class MyContactPage extends StatefulWidget {
 }
 
 class _MyContactPageState extends State<MyContactPage> {
-  int _counter = 0;
+  final _formKey = GlobalKey<FormState>();
+  String _nama = "";
+  String _email = "";
+  String _kendala = "";
+  List<String> _jenis = ['Pemasukan', 'Pengeluaran'];
+  var _jenisTerpilih = null;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+  TextEditingController dateInput = TextEditingController();
+
+  @override
+  void initState() {
+    dateInput.text = ""; //set the initial value of text field
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyContactPage object that was created by
-        // the App.build method, and use it to set our appbar title.
         title: Text('Contact Us'),
       ),
-      drawer: LabDrawer(),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+      drawer: const LabDrawer(),
+      body: Form(
+        key: _formKey,
+        child: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              children: [
+                Padding(
+                  // Menggunakan padding sebesar 8 pixels
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      icon: Icon(Icons.people),
+                      hintText: "Contoh: Rafli Wasis Anggito",
+                      labelText: "Nama",
+                      // Menambahkan icon agar lebih intuitif
+                      // Menambahkan circular border agar lebih rapi
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                    ),
+                    // Menambahkan behavior saat nama diketik
+                    onChanged: (String? value) {
+                      setState(() {
+                        _nama = value!;
+                      });
+                    },
+                    // Menambahkan behavior saat data disimpan
+                    onSaved: (String? value) {
+                      setState(() {
+                        _nama = value!;
+                      });
+                    },
+                    // Validator sebagai validasi form
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Nama tidak boleh kosong!';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+
+                Padding(
+                  // Menggunakan padding sebesar 8 pixels
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      icon: Icon(Icons.email),
+                      hintText: "Contoh: rafli_wasis@gmail.com",
+                      labelText: "Email",
+                      // Menambahkan icon agar lebih intuitif
+                      // Menambahkan circular border agar lebih rapi
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                    ),
+                    // Menambahkan behavior saat nama diketik
+                    onChanged: (String? value) {
+                      setState(() {
+                        _email = value!;
+                      });
+                    },
+                    // Menambahkan behavior saat data disimpan
+                    onSaved: (String? value) {
+                      setState(() {
+                        _email = value!;
+                      });
+                    },
+                    // Validator sebagai validasi form
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Email tidak boleh kosong!';
+                      }
+                      return null;
+                    },
+                  ),
+                ), 
+                Padding(
+                  // Menggunakan padding sebesar 8 pixels
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      icon: Icon(Icons.report_problem),
+                      hintText: "Contoh: Uang tidak bertambah",
+                      labelText: "Kendala",
+                      // Menambahkan icon agar lebih intuitif
+                      // Menambahkan circular border agar lebih rapi
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                    ),
+                    // Menambahkan behavior saat nama diketik
+                    onChanged: (String? value) {
+                      setState(() {
+                        _kendala = value!;
+                      });
+                    },
+                    // Menambahkan behavior saat data disimpan
+                    onSaved: (String? value) {
+                      setState(() {
+                        _kendala = value!;
+                      });
+                    },
+                    // Validator sebagai validasi form
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Kendala tidak boleh kosong!';
+                      }
+                      return null;
+                    },
+                  ),
+                ), 
+                TextFormField(
+                  controller: dateInput,
+                  decoration: InputDecoration(
+                    icon: Icon(Icons.calendar_today),
+                    labelText: "Masukkan tanggal",
+                  ),
+                  readOnly: true,
+                  onTap: () async {
+                    DateTime? pickedDate = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(1950),
+                        lastDate: DateTime(2100));
+                    if (pickedDate != null) {
+                      String formattedDate =
+                          DateFormat('dd-MM-yyy').format(pickedDate);
+
+                      setState(() {
+                        dateInput.text = formattedDate;
+                      });
+                    } else {}
+                  },
+                ),
+
+                TextButton(
+                  child: const Text(
+                    "Send",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.green),
+                    padding: MaterialStateProperty.all<EdgeInsets>(
+                        EdgeInsets.all(16)),
+                  ),
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      var map = {};
+                      map['nama'] = _nama;
+                      map['email'] = _email;
+                      map['kendala'] = _kendala;
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Data berhasil disimpan!'),
+                          backgroundColor: Colors.green,
+                        ),
+                      );
+                    }
+                  },
+                ),
+              ],
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
