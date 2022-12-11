@@ -7,19 +7,30 @@ import 'package:flutter_nobokek/page/report_page.dart';
 import 'package:flutter_nobokek/page/statistic.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+  final int page;
+  const MainPage({
+    super.key,
+    this.page = 2,
+  });
 
   @override
   State<MainPage> createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
-  final _pageViewController = PageController(initialPage: 2);
-  int _selectedPage = 2;
+  PageController? _pageViewController;
+  int? _selectedPage;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedPage = widget.page;
+    _pageViewController = PageController(initialPage: widget.page);
+  }
 
   @override
   void dispose() {
-    _pageViewController.dispose();
+    _pageViewController!.dispose();
     super.dispose();
   }
 
@@ -44,9 +55,9 @@ class _MainPageState extends State<MainPage> {
         ),
         bottomNavigationBar: BottomNavigationBar(
           backgroundColor: ColorPalettes.white,
-          currentIndex: _selectedPage,
+          currentIndex: _selectedPage!,
           onTap: (index) {
-            _pageViewController.animateToPage(
+            _pageViewController!.animateToPage(
               index,
               duration: const Duration(milliseconds: 200),
               curve: Curves.linear,
