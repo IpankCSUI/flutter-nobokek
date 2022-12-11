@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
+import "package:flutter/material.dart";
 import 'package:flutter_nobokek/widgets/drawer.dart';
 import 'package:flutter_nobokek/commons/styles/color_palettes.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter_nobokek/models/stat_money.dart';
 
 class MyStatisticPage extends StatefulWidget {
