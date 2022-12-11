@@ -4,6 +4,7 @@ import 'package:flutter_nobokek/widgets/last_transaction_card.dart';
 import 'package:flutter_nobokek/widgets/report_overview_card.dart';
 import 'package:flutter_nobokek/widgets/total_balance_card.dart';
 import 'package:flutter_nobokek/widgets/yellow_button.dart';
+import 'package:flutter_nobokek/widgets/target_card.dart';
 
 class MyReportPage extends StatelessWidget {
   const MyReportPage({super.key});
@@ -26,6 +27,12 @@ class MyReportPage extends StatelessWidget {
         "tanggal": "12-12-12",
         "jumlah": "(+) Rp. 20.000",
       }
+    ];
+    List<Map<String, dynamic>> dummyTarget = [
+      {
+        "title": "Mau Nabung 50000",
+        "message": "Buat beli makanan",
+      },
     ];
     return SingleChildScrollView(
       child: Padding(
@@ -100,9 +107,60 @@ class MyReportPage extends StatelessWidget {
             ),
             Center(
               child: YellowButton(
-                onPressed: () {},
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          scrollable: true,
+                          title: Text('Apa Target Kamu Hari ini?'),
+                          content: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Form(
+                              child: Column(
+                                children: <Widget>[
+                                  TextFormField(
+                                    decoration: const InputDecoration(
+                                      labelText: 'Target',
+                                      icon: Icon(Icons.attach_money),
+                                    ),
+                                  ),
+                                  TextFormField(
+                                    decoration: const InputDecoration(
+                                      labelText: 'Description',
+                                      icon: Icon(Icons.message),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          actions: [
+                            YellowButton(
+                                label: "Submit",
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                }),
+                          ],
+                        );
+                      });
+                },
                 label: "Apa Target Kamu Hari Ini?",
               ),
+            ),
+            ListView.builder(
+              shrinkWrap: true,
+              primary: false,
+              itemCount: dummyTarget.length,
+              itemBuilder: ((context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 5.0),
+                  child: TargetCard(
+                    title: dummyTarget[index]["title"],
+                    message: dummyTarget[index]["message"],
+                  ),
+                );
+              }),
             ),
           ],
         ),

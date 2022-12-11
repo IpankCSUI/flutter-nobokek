@@ -4,10 +4,12 @@ import 'package:flutter_nobokek/commons/styles/color_palettes.dart';
 class YellowButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final String label;
+  final double? minWidth;
   const YellowButton({
     super.key,
     this.onPressed,
     required this.label,
+    this.minWidth = double.infinity,
   });
 
   @override
@@ -18,6 +20,7 @@ class YellowButton extends StatelessWidget {
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(8))),
         backgroundColor: ColorPalettes.freshLemon,
+        minimumSize: Size(minWidth!, 44),
       ),
       child: Text(
         label,
