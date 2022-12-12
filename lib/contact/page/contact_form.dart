@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_nobokek/drawer.dart';
+import 'package:flutter_nobokek/main.dart';
+import 'package:flutter_nobokek/widgets/contact_card.dart';
+import 'package:flutter_nobokek/widgets/drawer.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+
+import '../../commons/styles/color_palettes.dart';
+import '../../function/api.dart';
+import '../../widgets/target_card.dart';
+import '../../widgets/yellow_button.dart';
 
 class MyContactPage extends StatefulWidget {
   const MyContactPage({super.key});
@@ -171,14 +178,12 @@ class _MyContactPageState extends State<MyContactPage> {
                     if (pickedDate != null) {
                       String formattedDate =
                           DateFormat('dd-MM-yyy').format(pickedDate);
-
                       setState(() {
                         dateInput.text = formattedDate;
                       });
                     } else {}
                   },
                 ),
-
                 TextButton(
                   child: const Text(
                     "Send",
@@ -190,11 +195,21 @@ class _MyContactPageState extends State<MyContactPage> {
                         EdgeInsets.all(16)),
                   ),
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      var map = {};
-                      map['nama'] = _nama;
-                      map['email'] = _email;
-                      map['kendala'] = _kendala;
+                    if (_nama != null && _email != null && _kendala != null && dateInput != null) {
+                      final data = {
+                        "nama": _nama,
+                        "email": _email,
+                        "kendala": _kendala,
+                        "dateInput": dateInput,
+                      };
+                      NoBokekApi.addProblem(context, data);
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const MyHomePage(
+                            ),
+                          ),
+                          (route) => false);
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text('Data berhasil disimpan!'),
@@ -202,8 +217,42 @@ class _MyContactPageState extends State<MyContactPage> {
                         ),
                       );
                     }
-                  },
+                  }
                 ),
+                FutureBuilder(
+              future: NoBokekApi.fetchContact(context),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done &&
+                    snapshot.hasData) {
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    primary: false,
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: ((context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5.0),
+                        child: ContactCard(
+                          nama: snapshot.data![index].fields.nama,
+                          kendala: snapshot.data![index].fields.masalah,
+                          onPressed: () {
+                          },
+                        ),
+                      );
+                    }),
+                  );
+                } else if (snapshot.connectionState ==
+                    ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      color: ColorPalettes.freshLemon,
+                    ),
+                  );
+                } else {
+                  return const SizedBox();
+                }
+              },
+            ),
+                
               ],
             ),
           ),

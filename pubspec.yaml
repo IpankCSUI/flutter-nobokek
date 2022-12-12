@@ -18,6 +18,7 @@ dependencies:
   carousel_slider: ^4.2.0
   intl: ^0.17.0
   pbp_django_auth: ^0.3.0
+  url_launcher: ^6.1.7
 dev_dependencies:
   flutter_test:
     sdk: flutter

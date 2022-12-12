@@ -7,11 +7,12 @@ import 'package:flutter_nobokek/widgets/drawer.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_nobokek/page/add.dart';
-import 'package:flutter_nobokek/contact/contact_form.dart';
+import 'package:flutter_nobokek/contact/page/contact_form.dart';
 import 'package:flutter_nobokek/page/report_page.dart';
 import 'package:flutter_nobokek/page/forum.dart';
 import 'package:flutter_nobokek/page/statistic.dart';
 import 'package:flutter_nobokek/widgets/drawer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(const MyApp());
@@ -171,7 +172,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ],
                 ),
-              )
+              ),
+              InkWell(
+              child: new Text('Open Browser'),
+              onTap: () => launch('https://docs.flutter.io/flutter/services/UrlLauncher-class.html')
+              ),
+
+
+
             ],
           ),
         ))

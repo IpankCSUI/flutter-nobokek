@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import 'package:flutter_nobokek/commons/styles/color_palettes.dart';
 import 'package:flutter_nobokek/page/add.dart';
 import 'package:flutter_nobokek/page/forum.dart';
-import 'package:flutter_nobokek/page/home_page.dart';
+import 'package:flutter_nobokek/main.dart';
 import 'package:flutter_nobokek/page/report_page.dart';
 import 'package:flutter_nobokek/page/statistic.dart';
 
