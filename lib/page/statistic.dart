@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:flutter_nobokek/widgets/drawer.dart';
 import 'package:flutter_nobokek/commons/styles/color_palettes.dart';
+import 'package:flutter_nobokek/function/api.dart';
 import 'package:flutter_nobokek/models/stat_money.dart';
+import 'package:flutter_nobokek/models/money.dart';
 import 'package:flutter_nobokek/widgets/yellow_button.dart';
 import 'package:flutter_nobokek/widgets/statistic_target.dart';
 
@@ -93,7 +94,11 @@ class _MyStatisticPage extends State<MyStatisticPage> {
     ];
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Statistic")),
+      appBar: AppBar(
+        // Here we take the value from the MyStatisticPage object that was created by
+        // the App.build method, and use it to set our appbar title.
+        title: Text('Statistic'),
+      ),
       body: Center(
         child: Container(
           height: 1500,
@@ -104,13 +109,30 @@ class _MyStatisticPage extends State<MyStatisticPage> {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: <Widget>[
-                  const Text(
-                    "Hello, User!",
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  FutureBuilder(
+                    future: NoBokekApi.fetchUsername(context),
+                    builder: ((context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done &&
+                          snapshot.hasData) {
+                        return Text(
+                          'Hello, ${snapshot.data}!',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline6!
+                              .copyWith(fontSize: 23, fontWeight: FontWeight.bold),
+                        );
+                      } else if (snapshot.connectionState == ConnectionState.done &&
+                          !snapshot.hasData) {
+                        return const Text(
+                            "Gagal mendapatkan data username pengguna.");
+                      } else {
+                        return const Text("Sedang mendapatkan data.");
+                      }
+                    }
+                    ),
                   ),
                   const Text(
                     "Income-Outcome-Conclusion-Target Statistic",
-                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   Expanded(
                     child: charts.BarChart(timeline, animate: true),

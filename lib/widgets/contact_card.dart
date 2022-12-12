@@ -1,23 +1,19 @@
 import "package:flutter/material.dart";
 import 'package:flutter_nobokek/commons/styles/color_palettes.dart';
 
-class LastTransactionCard extends StatelessWidget {
-  final String title;
-  final String tanggal;
-  final double jumlah;
-  final bool isIncome;
-  const LastTransactionCard({
+class ContactCard extends StatelessWidget {
+  final String nama;
+  final String kendala;
+  final VoidCallback onPressed;
+  const ContactCard({
     super.key,
-    required this.title,
-    required this.tanggal,
-    required this.jumlah,
-    required this.isIncome,
+    required this.nama,
+    required this.kendala,
+    required this.onPressed,
   });
 
   @override
   Widget build(BuildContext context) {
-    final prefix = isIncome ? "(+)" : "(-)";
-
     return Container(
       height: 70,
       decoration: const BoxDecoration(
@@ -31,25 +27,33 @@ class LastTransactionCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                title,
+                nama,
                 style: Theme.of(context)
                     .textTheme
                     .bodyText1!
                     .copyWith(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 4),
-              Text(tanggal),
+              Text(kendala),
             ],
           ),
           const Spacer(),
-          Text(
-            '$prefix ${jumlah.toInt()}',
-            style: Theme.of(context)
-                .textTheme
-                .bodyText1!
-                .copyWith(fontWeight: FontWeight.bold),
+          TextButton(
+            onPressed: onPressed,
+            child: Text("Terpenuhi",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1!
+                    .copyWith(color: Colors.red)),
           ),
-          const SizedBox(width: 16),
+          // Text(
+          //   message,
+          //   style: Theme.of(context)
+          //       .textTheme
+          //       .bodyText1!
+          //       .copyWith(fontWeight: FontWeight.bold),
+          // ),
+          // const SizedBox(width: 16),
         ],
       ),
     );
