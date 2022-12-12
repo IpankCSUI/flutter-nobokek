@@ -1,12 +1,17 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_nobokek/drawer.dart';
 import 'package:flutter/src/material/colors.dart';
+import 'package:flutter_nobokek/commons/styles/themes.dart';
+import 'package:flutter_nobokek/page/login_page.dart';
+import 'package:flutter_nobokek/widgets/drawer.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_nobokek/page/add.dart';
 import 'package:flutter_nobokek/contact/contact_form.dart';
+import 'package:flutter_nobokek/page/report_page.dart';
 import 'package:flutter_nobokek/page/forum.dart';
-import 'package:flutter_nobokek/page/report.dart';
 import 'package:flutter_nobokek/page/statistic.dart';
+import 'package:flutter_nobokek/widgets/drawer.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +20,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,7 +36,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.green,
       ),
-      home: MyHomePage(),
+      home: const MyHomePage(),
     );
   }
 }
@@ -40,16 +44,36 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
-  final String title = 'Home';
+  // This widget is the home page of your application. It is stateful, meaning
+  // that it has a State object (defined below) that contains fields that affect
+  // how it looks.
+
+  // This class is the configuration for the state. It holds the values (in this
+  // case the title) provided by the parent (in this case the App widget) and
+  // used by the build method of the State. Fields in a Widget subclass are
+  // always marked "final".
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int _counter = 0;
+
+  void _incrementCounter() {
+    setState(() {
+      // This call to setState tells the Flutter framework that something has
+      // changed in this State, which causes it to rerun the build method below
+      // so that the display can reflect the updated values. If we changed
+      // _counter without calling setState(), then the build method would not be
+      // called again, and so nothing would appear to happen.
+      _counter++;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
+   var size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         // Here we take the value from the MyAddPage object that was created by
