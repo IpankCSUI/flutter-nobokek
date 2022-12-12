@@ -12,4 +12,7 @@ class ColorPalettes {
   static const Color black = Colors.black;
   static const Color grey = Color(0xff5F4848);
   static const Color grey2 = Color(0xffEFEBDB);
+  static const Color darkred = Color(0xFFB83030);
+  static const Color darkblue = Color(0x010423D0);
+  static const Color darkgreen = Color(0x0107B020);
 }

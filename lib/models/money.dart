@@ -53,6 +53,14 @@ class Fields {
   DateTime date;
   dynamic note;
 
+  // dynamic user;
+  // double? income;
+  // double? outcome;
+  // dynamic? descIn;
+  // dynamic? descOut;
+  // dynamic date;
+  // dynamic note;
+
   factory Fields.fromJson(Map<String, dynamic> json) => Fields(
         user: json["user"],
         income: json["income"],

@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 Future<List<Money>> fetchMoney() async {
+
   var url = Uri.parse('https://nobokekk.up.railway.app/add/json/');
   var response = await http.get(
     url,
@@ -22,6 +23,5 @@ Future<List<Money>> fetchMoney() async {
       listMoney.add(Money.fromJson(d));
     }
   }
-
   return listMoney;
 }
