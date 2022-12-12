@@ -89,6 +89,54 @@ class NoBokekApi {
     }
   }
 
+  static Future<void> addNote(
+    BuildContext context,
+    Map<String, dynamic> data,
+  ) async {
+    const url = "https://nobokekk.up.railway.app/add/addnote/";
+    final request = Provider.of<CookieRequest>(context, listen: false);
+    try {
+      await request.post(url, data);
+      log("mas");
+      // return true;
+    } catch (error) {
+      log("ERROR: $error");
+      // return false;
+    }
+  }
+
+  static Future<void> addIncome(
+    BuildContext context,
+    Map<String, dynamic> data,
+  ) async {
+    const url = "https://nobokekk.up.railway.app/add/addincome/";
+    final request = Provider.of<CookieRequest>(context, listen: false);
+    try {
+      await request.post(url, data);
+      log("mas");
+      // return true;
+    } catch (error) {
+      log("ERROR: $error");
+      // return false;
+    }
+  }
+
+  static Future<void> addOutcome(
+    BuildContext context,
+    Map<String, dynamic> data,
+  ) async {
+    const url = "https://nobokekk.up.railway.app/add/addoutcome/";
+    final request = Provider.of<CookieRequest>(context, listen: false);
+    try {
+      await request.post(url, data);
+      log("mas");
+      // return true;
+    } catch (error) {
+      log("ERROR: $error");
+      // return false;
+    }
+  }
+
   static Future<void> deleteTarget(
     BuildContext context,
     int pk,
