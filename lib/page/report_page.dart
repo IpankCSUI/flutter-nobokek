@@ -1,51 +1,53 @@
 import "package:flutter/material.dart";
 import 'package:flutter_nobokek/commons/styles/color_palettes.dart';
+import 'package:flutter_nobokek/models/money.dart';
+import 'package:flutter_nobokek/function/api.dart';
+import 'package:flutter_nobokek/page/main_page.dart';
 import 'package:flutter_nobokek/widgets/last_transaction_card.dart';
 import 'package:flutter_nobokek/widgets/report_overview_card.dart';
 import 'package:flutter_nobokek/widgets/total_balance_card.dart';
 import 'package:flutter_nobokek/widgets/yellow_button.dart';
 import 'package:flutter_nobokek/widgets/target_card.dart';
 
-class MyReportPage extends StatelessWidget {
+class MyReportPage extends StatefulWidget {
   const MyReportPage({super.key});
 
   @override
+  State<MyReportPage> createState() => _MyReportPageState();
+}
+
+class _MyReportPageState extends State<MyReportPage> {
+  String? target;
+  String? desc;
+
+  @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> dummyData = [
-      {
-        "title": "Dapet dari mamah",
-        "tanggal": "12-12-12",
-        "jumlah": "(+) Rp. 20.000",
-      },
-      {
-        "title": "Dapet dari mamah",
-        "tanggal": "12-12-12",
-        "jumlah": "(+) Rp. 20.000",
-      },
-      {
-        "title": "Dapet dari mamah",
-        "tanggal": "12-12-12",
-        "jumlah": "(+) Rp. 20.000",
-      }
-    ];
-    List<Map<String, dynamic>> dummyTarget = [
-      {
-        "title": "Mau Nabung 50000",
-        "message": "Buat beli makanan",
-      },
-    ];
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.only(left: 24.0, right: 24.0, top: 24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Hello, Ocit!",
-              style: Theme.of(context)
-                  .textTheme
-                  .headline6!
-                  .copyWith(fontWeight: FontWeight.bold),
+            FutureBuilder(
+              future: NoBokekApi.fetchUsername(context),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done &&
+                    snapshot.hasData) {
+                  return Text(
+                    'Hello, ${snapshot.data}!',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6!
+                        .copyWith(fontWeight: FontWeight.bold),
+                  );
+                } else if (snapshot.connectionState == ConnectionState.done &&
+                    !snapshot.hasData) {
+                  return const Text(
+                      "Gagal mendapatkan data username pengguna.");
+                } else {
+                  return const Text("Sedang mendapatkan data.");
+                }
+              },
             ),
             const SizedBox(height: 4),
             Text(
@@ -62,7 +64,23 @@ class MyReportPage extends StatelessWidget {
                   color: ColorPalettes.grey, fontWeight: FontWeight.w500),
             ),
             const SizedBox(height: 10),
-            const TotalBalanceCard(label: "Rp. 20.500.000"),
+            FutureBuilder(
+              future: NoBokekApi.fetchTransactions(context),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done &&
+                    snapshot.hasData) {
+                  final balance = _getUserBalance(snapshot.data!);
+                  return TotalBalanceCard(label: 'Rp. ${balance.toString()}');
+                } else if (snapshot.connectionState == ConnectionState.done &&
+                    !snapshot.hasData) {
+                  return const TotalBalanceCard(
+                      label: "Gagal mendapatkan data balance pengguna.");
+                } else {
+                  return const TotalBalanceCard(
+                      label: "Sedang mendapatkan data.");
+                }
+              },
+            ),
             const SizedBox(height: 48),
             Text(
               "Overview",
@@ -71,15 +89,57 @@ class MyReportPage extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Row(
-              children: const [
-                ReportOverviewCard(
-                  label: "Income",
-                  amount: "Rp. 20.500.000",
+              children: [
+                FutureBuilder(
+                  future: NoBokekApi.fetchTransactions(context),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done &&
+                        snapshot.hasData) {
+                      final income = _getUserIncome(snapshot.data!);
+                      return ReportOverviewCard(
+                        label: "Income",
+                        amount: 'Rp. ${income.toString()}',
+                      );
+                    } else if (snapshot.connectionState ==
+                            ConnectionState.done &&
+                        !snapshot.hasData) {
+                      return const ReportOverviewCard(
+                        label: "Income",
+                        amount: "Gagal mendapatkan data outcome pengguna.",
+                      );
+                    } else {
+                      return const ReportOverviewCard(
+                        label: "Income",
+                        amount: "Sedang mendapatkan data...",
+                      );
+                    }
+                  },
                 ),
-                Spacer(),
-                ReportOverviewCard(
-                  label: "Outcome",
-                  amount: "Rp. 20.500.000",
+                const Spacer(),
+                FutureBuilder(
+                  future: NoBokekApi.fetchTransactions(context),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done &&
+                        snapshot.hasData) {
+                      final outcome = _getUserOutcome(snapshot.data!);
+                      return ReportOverviewCard(
+                        label: "Outcome",
+                        amount: 'Rp. ${outcome.toString()}',
+                      );
+                    } else if (snapshot.connectionState ==
+                            ConnectionState.done &&
+                        !snapshot.hasData) {
+                      return const ReportOverviewCard(
+                        label: "Outcome",
+                        amount: "Gagal mendapatkan data outcome pengguna.",
+                      );
+                    } else {
+                      return const ReportOverviewCard(
+                        label: "Outcome",
+                        amount: "Sedang mendapatkan data...",
+                      );
+                    }
+                  },
                 ),
               ],
             ),
@@ -90,20 +150,42 @@ class MyReportPage extends StatelessWidget {
                   color: ColorPalettes.grey, fontWeight: FontWeight.w500),
             ),
             const SizedBox(height: 10),
-            ListView.builder(
-              shrinkWrap: true,
-              primary: false,
-              itemCount: dummyData.length,
-              itemBuilder: ((context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 5.0),
-                  child: LastTransactionCard(
-                    title: dummyData[index]["title"],
-                    subTitle: dummyData[index]["tanggal"],
-                    subTitle2: dummyData[index]["jumlah"],
-                  ),
-                );
-              }),
+            FutureBuilder(
+              future: NoBokekApi.fetchTransactions(context),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done &&
+                    snapshot.hasData) {
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    primary: false,
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: ((context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5.0),
+                        child: LastTransactionCard(
+                          isIncome: snapshot.data![index].fields.income != null,
+                          title: snapshot.data![index].fields.descIn != null
+                              ? snapshot.data![index].fields.descIn!
+                              : snapshot.data![index].fields.descOut!,
+                          tanggal: snapshot.data![index].fields.date.toString(),
+                          jumlah: snapshot.data![index].fields.income != null
+                              ? snapshot.data![index].fields.income!
+                              : snapshot.data![index].fields.outcome!,
+                        ),
+                      );
+                    }),
+                  );
+                } else if (snapshot.connectionState ==
+                    ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      color: ColorPalettes.freshLemon,
+                    ),
+                  );
+                } else {
+                  return const SizedBox();
+                }
+              },
             ),
             Center(
               child: YellowButton(
@@ -113,19 +195,25 @@ class MyReportPage extends StatelessWidget {
                       builder: (BuildContext context) {
                         return AlertDialog(
                           scrollable: true,
-                          title: Text('Apa Target Kamu Hari ini?'),
+                          title: const Text('Apa Target Kamu Hari ini?'),
                           content: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Form(
                               child: Column(
                                 children: <Widget>[
                                   TextFormField(
+                                    onChanged: (value) {
+                                      target = value;
+                                    },
                                     decoration: const InputDecoration(
                                       labelText: 'Target',
                                       icon: Icon(Icons.attach_money),
                                     ),
                                   ),
                                   TextFormField(
+                                    onChanged: (value) {
+                                      desc = value;
+                                    },
                                     decoration: const InputDecoration(
                                       labelText: 'Description',
                                       icon: Icon(Icons.message),
@@ -139,7 +227,21 @@ class MyReportPage extends StatelessWidget {
                             YellowButton(
                                 label: "Submit",
                                 onPressed: () {
-                                  Navigator.pop(context);
+                                  if (target != null && desc != null) {
+                                    final data = {
+                                      "title": target,
+                                      "description": desc,
+                                    };
+                                    NoBokekApi.addTarget(context, data);
+                                    Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => const MainPage(
+                                            page: 3,
+                                          ),
+                                        ),
+                                        (route) => false);
+                                  }
                                 }),
                           ],
                         );
@@ -148,23 +250,84 @@ class MyReportPage extends StatelessWidget {
                 label: "Apa Target Kamu Hari Ini?",
               ),
             ),
-            ListView.builder(
-              shrinkWrap: true,
-              primary: false,
-              itemCount: dummyTarget.length,
-              itemBuilder: ((context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 5.0),
-                  child: TargetCard(
-                    title: dummyTarget[index]["title"],
-                    message: dummyTarget[index]["message"],
-                  ),
-                );
-              }),
+            FutureBuilder(
+              future: NoBokekApi.fetchReport(context),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done &&
+                    snapshot.hasData) {
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    primary: false,
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: ((context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5.0),
+                        child: TargetCard(
+                          title: snapshot.data![index].title,
+                          message: snapshot.data![index].desc,
+                          onPressed: () {
+                            NoBokekApi.deleteTarget(
+                                context, snapshot.data![index].pk);
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const MainPage(
+                                    page: 3,
+                                  ),
+                                ),
+                                (route) => false);
+                          },
+                        ),
+                      );
+                    }),
+                  );
+                } else if (snapshot.connectionState ==
+                    ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      color: ColorPalettes.freshLemon,
+                    ),
+                  );
+                } else {
+                  return const SizedBox();
+                }
+              },
             ),
           ],
         ),
       ),
     );
+  }
+
+  int _getUserBalance(List<Money> listTransactions) {
+    int balance = 0;
+    for (var i = 0; i < listTransactions.length; i++) {
+      if (listTransactions[i].fields.income != null) {
+        balance = balance + listTransactions[i].fields.income!.toInt();
+      } else {
+        balance = balance - listTransactions[i].fields.outcome!.toInt();
+      }
+    }
+    return balance;
+  }
+
+  int _getUserIncome(List<Money> listTransactions) {
+    int income = 0;
+    for (var i = 0; i < listTransactions.length; i++) {
+      if (listTransactions[i].fields.income != null) {
+        income = income + listTransactions[i].fields.income!.toInt();
+      }
+    }
+    return income;
+  }
+
+  int _getUserOutcome(List<Money> listTransactions) {
+    int outcome = 0;
+    for (var i = 0; i < listTransactions.length; i++) {
+      if (listTransactions[i].fields.outcome != null) {
+        outcome = outcome + listTransactions[i].fields.outcome!.toInt();
+      }
+    }
+    return outcome;
   }
 }

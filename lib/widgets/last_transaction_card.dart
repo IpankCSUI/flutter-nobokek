@@ -3,17 +3,21 @@ import 'package:flutter_nobokek/commons/styles/color_palettes.dart';
 
 class LastTransactionCard extends StatelessWidget {
   final String title;
-  final String subTitle;
-  final String subTitle2;
+  final String tanggal;
+  final double jumlah;
+  final bool isIncome;
   const LastTransactionCard({
     super.key,
     required this.title,
-    required this.subTitle,
-    required this.subTitle2,
+    required this.tanggal,
+    required this.jumlah,
+    required this.isIncome,
   });
 
   @override
   Widget build(BuildContext context) {
+    final prefix = isIncome ? "(+)" : "(-)";
+
     return Container(
       height: 70,
       decoration: const BoxDecoration(
@@ -34,12 +38,12 @@ class LastTransactionCard extends StatelessWidget {
                     .copyWith(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 4),
-              Text(subTitle),
+              Text(tanggal),
             ],
           ),
           const Spacer(),
           Text(
-            subTitle2,
+            '$prefix ${jumlah.toInt()}',
             style: Theme.of(context)
                 .textTheme
                 .bodyText1!

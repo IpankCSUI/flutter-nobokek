@@ -4,10 +4,12 @@ import 'package:flutter_nobokek/commons/styles/color_palettes.dart';
 class TargetCard extends StatelessWidget {
   final String title;
   final String message;
+  final VoidCallback onPressed;
   const TargetCard({
     super.key,
     required this.title,
     required this.message,
+    required this.onPressed,
   });
 
   @override
@@ -35,7 +37,15 @@ class TargetCard extends StatelessWidget {
               Text(message),
             ],
           ),
-          // const Spacer(),
+          const Spacer(),
+          TextButton(
+            onPressed: onPressed,
+            child: Text("Terpenuhi",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1!
+                    .copyWith(color: Colors.red)),
+          ),
           // Text(
           //   message,
           //   style: Theme.of(context)

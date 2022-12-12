@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 Future<List<Money>> fetchMoney() async {
-  var url = Uri.parse('https://nobokek.up.railway.app/json/');
+  var url = Uri.parse('https://nobokekk.up.railway.app/add/json/');
   var response = await http.get(
     url,
     headers: {
