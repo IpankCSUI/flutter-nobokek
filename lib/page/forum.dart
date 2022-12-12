@@ -8,6 +8,7 @@ import 'package:flutter_nobokek/models/pendapatForum.dart';
 import 'package:flutter_nobokek/function/api.dart';
 import 'package:flutter_nobokek/page/main_page.dart';
 
+
 class MyForumPage extends StatefulWidget {
   const MyForumPage({super.key});
 
@@ -123,7 +124,7 @@ class _MyForumPageState extends State<MyForumPage> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => const MainPage(
-                              page: 3,
+                              page: 4,
                             ),
                           ),
                           (route) => false);
@@ -139,25 +140,27 @@ class _MyForumPageState extends State<MyForumPage> {
                   .subtitle1!
                   .copyWith(fontWeight: FontWeight.w500),
             ),
-            const SizedBox(height: 8),
             FutureBuilder(
               future: NoBokekApi.fetchForum(context),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done &&
                     snapshot.hasData) {
-                  return ListView.builder(
+                  return GridView.builder(
                     shrinkWrap: true,
                     primary: false,
                     itemCount: snapshot.data!.length,
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 16,
+                    crossAxisSpacing: 16,
+                  ),
                     itemBuilder: ((context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 5.0),
-                        child: ForumCard(
+                      return
+                        ForumCard(
                           nama: snapshot.data![index].nama,
                           jurusan: snapshot.data![index].jurusan,
                           angkatan: snapshot.data![index].angkatan,
                           pesan: snapshot.data![index].pendapat,
-                        ),
                       );
                     }),
                   );
@@ -173,7 +176,7 @@ class _MyForumPageState extends State<MyForumPage> {
                 }
               },
             ),
-            const SizedBox(height: 8),
+            
           ],
         ),
       ),
