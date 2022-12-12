@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_nobokek/models/money.dart';
 
 class EarningsTimeline {
   final String week;
@@ -10,18 +11,4 @@ class EarningsTimeline {
   });
 }
 
-// import 'package:flutter/material.dart';
 
-// class EarningsTimeline {
-//   final String week;
-//   final double income;
-//   final double outcome;
-//   final double target;
-
-//   EarningsTimeline({
-//       required this.week,
-//       required this.income,
-//       required this.outcome,
-//       required this.target,
-//   });
-// }
