@@ -26,13 +26,13 @@ Platform (website dan aplikasi) ini dibuat untuk membantu mempermudah pengelolaa
         - Menghapus keluhan yang sudah selesai diatasi.
 
 ## 📝 Daftar fitur atau modul yang diimplementasikan beserta kontrak kinerja per anggota kelompok 📝
-1. Autentikasi pengguna (Login, Sign Up)
-2. Homepage Aplikasi (Berisikan penjelasan singkat website NoBokek, beberapa info terkini penjelasan singkat website NoBokek dan user dapat menggunakan fitur search) 
-3. Add Income / Outcome + Target Pengeluaran User (Membuat fitur yang berupa form untuk menambahkan input dan outcome user serta target pengeluaran user pada setiap bulannya)
-4. Statistik Outcome / Income User (Menyajikan data outcome dan income pengguna menggunakan grafik, user dapat melakukan filter berdasarkan pengeluaran dan pemasukkan terendah dan tertinggi) 
-5. Report User Info (Menampilkan laporan yang berupa outcome user dan detail pengeluaran yang ingin dilihat user, User juga dapat memakai filter untuk mencari bulan)
-6. Forum untuk posting (User yang sudah login dapat melakukan posting mengenai hal yang berkaitan dengan keuangan kemudian dapat dilihat oleh user lain)
-7. Contact Us untuk mengirim keluhan user yang sudah login kepada admin (Semua keluhan user akan ditampilkan ketika login sebagai admin)
+1. Autentikasi pengguna (Login, Sign Up) : Irfan Satya Hendrasto
+2. Homepage Aplikasi (Berisikan penjelasan singkat website NoBokek, beberapa info terkini penjelasan singkat website NoBokek dan user dapat menggunakan fitur search) : Irfan Satya Hendrasto
+3. Add Income / Outcome + Target Pengeluaran User (Membuat fitur yang berupa form untuk menambahkan input dan outcome user serta target pengeluaran user pada setiap bulannya) : Symphony Cellis Zaana Saraaya
+4. Statistik Outcome / Income User (Menyajikan data outcome dan income pengguna menggunakan grafik, user dapat melakukan filter berdasarkan pengeluaran dan pemasukkan terendah dan tertinggi) :  Marc Salvadore Silitonga
+5. Report User Info (Menampilkan laporan yang berupa outcome user dan detail pengeluaran yang ingin dilihat user, User juga dapat memakai filter untuk mencari bulan) : Rafli Wasis Anggito
+6. Forum untuk posting (User yang sudah login dapat melakukan posting mengenai hal yang berkaitan dengan keuangan kemudian dapat dilihat oleh user lain) : Ian Suryadi Timothy H
+7. Contact Us untuk mengirim keluhan user yang sudah login kepada admin (Semua keluhan user akan ditampilkan ketika login sebagai admin) : Irfan Satya Hendrasto
 
 ## ♻️ Alur pengintegrasian dengan web service untuk terhubung dengan aplikasi web yang sudah dibuat saat Proyek Tengah Semester ♻️
 - Menambahkan dependency http ke proyek, dependency ini digunakan untuk bertukar data melalui HTTP request, seperti GET, POST, PUT, dan lain-lain.

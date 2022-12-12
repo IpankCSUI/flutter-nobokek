@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_nobokek/drawer.dart';
+import 'package:flutter_nobokek/widgets/drawer.dart';
 
 class MyContactPage extends StatefulWidget {
   const MyContactPage({super.key});

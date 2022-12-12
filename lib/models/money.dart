@@ -4,56 +4,56 @@
 
 import 'dart:convert';
 
-List<Money> moneyFromJson(String str) => List<Money>.from(
-  json.decode(str).map((x) => Money.fromJson(x)));
+List<Money> moneyFromJson(String str) =>
+    List<Money>.from(json.decode(str).map((x) => Money.fromJson(x)));
 
-String moneyToJson(List<Money> data) => 
-  json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String moneyToJson(List<Money> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Money {
-    Money({
-        required this.model,
-        required this.pk,
-        required this.fields,
-    });
+  Money({
+    required this.model,
+    required this.pk,
+    required this.fields,
+  });
 
-    String model;
-    int pk;
-    Fields fields;
+  String model;
+  int pk;
+  Fields fields;
 
-    factory Money.fromJson(Map<String, dynamic> json) => Money(
+  factory Money.fromJson(Map<String, dynamic> json) => Money(
         model: json["model"],
         pk: json["pk"],
         fields: Fields.fromJson(json["fields"]),
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "model": model,
         "pk": pk,
         "fields": fields.toJson(),
-    };
+      };
 }
 
 class Fields {
-    Fields({
-        required this.user,
-        required this.income,
-        required this.outcome,
-        required this.descIn,
-        required this.descOut,
-        required this.date,
-        required this.note,
-    });
+  Fields({
+    required this.user,
+    this.income,
+    this.outcome,
+    this.descIn,
+    this.descOut,
+    required this.date,
+    this.note,
+  });
 
-    int user;
-    int income;
-    dynamic outcome;
-    String descIn;
-    dynamic descOut;
-    DateTime date;
-    dynamic note;
+  int user;
+  double? income;
+  double? outcome;
+  String? descIn;
+  String? descOut;
+  DateTime date;
+  dynamic note;
 
-    factory Fields.fromJson(Map<String, dynamic> json) => Fields(
+  factory Fields.fromJson(Map<String, dynamic> json) => Fields(
         user: json["user"],
         income: json["income"],
         outcome: json["outcome"],
@@ -61,15 +61,15 @@ class Fields {
         descOut: json["desc_out"],
         date: DateTime.parse(json["date"]),
         note: json["note"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "user": user,
         "income": income,
         "outcome": outcome,
         "desc_in": descIn,
         "desc_out": descOut,
-        "date": "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
+        "date":
+            "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
         "note": note,
-    };
-}
+      };

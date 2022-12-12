@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_nobokek/drawer.dart';
+import 'package:flutter_nobokek/widgets/drawer.dart';
 import 'package:flutter_nobokek/models/money.dart';
 import 'package:flutter_nobokek/function/fetch_money.dart';
 
