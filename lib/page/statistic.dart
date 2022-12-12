@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_nobokek/widgets/drawer.dart';
+
 
 class MyStatisticPage extends StatefulWidget {
   const MyStatisticPage({super.key});
@@ -45,7 +45,7 @@ class _MyStatisticPageState extends State<MyStatisticPage> {
         // the App.build method, and use it to set our appbar title.
         title: Text('Statistic'),
       ),
-      drawer: LabDrawer(),
+
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
