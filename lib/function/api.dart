@@ -7,6 +7,7 @@ import 'package:flutter_nobokek/models/money.dart';
 import 'package:flutter_nobokek/models/reportmodels.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_nobokek/models/pendapatForum.dart';
 
 class NoBokekApi {
   static Future<String?> fetchUsername(BuildContext context) async {
@@ -101,11 +102,27 @@ class NoBokekApi {
       // return false;
     }
   }
-  static Future<void> addProblem(
+  static Future<List<PendapatForum>?> fetchForum(BuildContext context) async {
+    const url = "https://nobokekk.up.railway.app/forum/json/";
+    final request = Provider.of<CookieRequest>(context, listen: false);
+    List<PendapatForum> listData = [];
+    try {
+      final response = await request.get(url) as List<dynamic>;
+      for (var i = 0; i < response.length; i++) {
+        final data = PendapatForum.fromJson(response[i]);
+        listData.add(data);
+      }
+      return listData;
+    } catch (error) {
+      log("ERROR: $error");
+      return null;
+    }
+  }
+static Future<void> addForum(
     BuildContext context,
     Map<String, dynamic> data,
   ) async {
-    const url = "https://nobokekk.up.railway.app/nobokek/create_problem//";
+    const url = "https://nobokekk.up.railway.app/forum/add_data_pendapat_forum/";
     final request = Provider.of<CookieRequest>(context, listen: false);
     try {
       await request.post(url, data);
