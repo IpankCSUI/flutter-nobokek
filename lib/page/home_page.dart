@@ -1,15 +1,5 @@
 import "package:flutter/material.dart";
-
-import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/src/material/colors.dart';
-import 'package:flutter_nobokek/commons/styles/themes.dart';
-import 'package:flutter_nobokek/page/login_page.dart';
-
-import 'package:pbp_django_auth/pbp_django_auth.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_nobokek/page/add.dart';
-
 import 'package:flutter_nobokek/page/report_page.dart';
 import 'package:flutter_nobokek/page/forum.dart';
 import 'package:flutter_nobokek/page/statistic.dart';
@@ -88,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           return MyAddPage();
                         }));
                       },
-                      image: "https://o.remove.bg/downloads/97afaa81-d3a9-4ae1-8d82-f0ca4b83789f/addflut-removebg-preview.png",
+                      image: "https://media.discordapp.net/attachments/1037346407344001124/1051793605565628476/addflut-removebg-preview.png",
                     ),
                     CategoryCard(
                       title: "Statistic",
@@ -98,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           return MyStatisticPage();
                         }));
                       },
-                      image: "https://o.remove.bg/downloads/a6a51505-4f5b-4d52-931e-5b8feb75374e/statflut-removebg-preview.png",
+                      image: "https://media.discordapp.net/attachments/1037346407344001124/1051794372569595905/statflut-removebg-preview.png",
                     ),
                     CategoryCard(
                       title: "Report User Info",
@@ -108,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           return MyReportPage();
                         }));
                       },
-                      image: "https://o.remove.bg/downloads/a1762059-2d16-45f6-99e6-1c52fa176488/reportflut-removebg-preview.png",
+                      image: "https://media.discordapp.net/attachments/1037346407344001124/1051794649905385532/reportflut-removebg-preview.png",
                     ),
                     CategoryCard(
                       title: "Forum",
@@ -118,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           return MyForumPage();
                         }));
                       },
-                      image: "https://o.remove.bg/downloads/3e48c3f3-1a20-4f77-872a-f9ce7622caa9/forum-removebg-preview.png",
+                      image: "https://media.discordapp.net/attachments/1037346407344001124/1051794884446650368/forum-removebg-preview.png",
                     ),
                     
                   ],
@@ -128,9 +118,6 @@ class _MyHomePageState extends State<MyHomePage> {
               child: new Text('Open Browser'),
               onTap: () => launch('https://docs.flutter.io/flutter/services/UrlLauncher-class.html')
               ),
-
-
-
             ],
           ),
         ))
