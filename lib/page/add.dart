@@ -2,6 +2,7 @@ import 'package:flutter_nobokek/widgets/drawer.dart';
 import 'package:flutter_nobokek/models/money.dart';
 import 'package:flutter_nobokek/function/fetch_money.dart';
 import 'package:flutter_nobokek/function/api.dart';
+import 'package:flutter_nobokek/widgets/yellow_button.dart';
 
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -24,9 +25,9 @@ class MyAddPage extends StatefulWidget {
 }
 
 class Money {
-  late int income;
-  late dynamic outcome;
-  late String descIn;
+  late double income;
+  late double outcome;
+  late dynamic descIn;
   late dynamic descOut;
   late DateTime date;
   late dynamic note;
@@ -58,8 +59,8 @@ class _MyAddPageState extends State<MyAddPage> {
 // }
   
   final _formKey = GlobalKey<FormState>();
-  int? income;
-  dynamic? outcome;
+  double? income;
+  double? outcome;
   String? descIn;
   dynamic? descOut;
   DateTime tanggal = DateTime.now();
@@ -129,13 +130,13 @@ class _MyAddPageState extends State<MyAddPage> {
                                 ),
                                 onChanged: (String? value) {
                                     setState(() {
-                                    income = int.tryParse(value!);
+                                    income = double.tryParse(value!);
                                     });
                                 },
                                 // Menambahkan behavior saat data disimpan
                                 onSaved: (String? value) {
                                     setState(() {
-                                    income = int.parse(value!);
+                                    income = double.parse(value!);
                                     });
                                 },
                                 // Validator sebagai validasi form
@@ -171,18 +172,33 @@ class _MyAddPageState extends State<MyAddPage> {
                                                     children: <Widget>[
                                                     TextButton(
                                                         onPressed:() async {
-                                                          final response = await http.post(
-                                                              Uri.parse('https://nobokekk.up.railway.app/add/add_income_flutter/'),
-                                                              headers: <String, String>{'Content-Type': 'application/json'},
-                                                              body: jsonEncode(<String, dynamic>{
-                                                                  'desc_in': descIn,
-                                                                  'income': income,
-                                                              })
-                                                          );
-                                                      //         Navigator.pushReplacement(
-                                                      //   context,
-                                                      //   MaterialPageRoute(builder: (context) => const MyKategoriPage()),
-                                                      // );
+                                                      //     final response = await http.post(
+                                                      //         Uri.parse('https://nobokekk.up.railway.app/add/add_income_flutter/'),
+                                                      //         headers: <String, String>{'Content-Type': 'application/json'},
+                                                      //         body: jsonEncode(<String, dynamic>{
+                                                      //             'desc_in': descIn,
+                                                      //             'income': income,
+                                                      //         })
+                                                      //     );
+                                                      // //         Navigator.pushReplacement(
+                                                      // //   context,
+                                                      // //   MaterialPageRoute(builder: (context) => const MyKategoriPage()),
+                                                      // // );
+                                                          if (income != null && descIn != null) {
+                                                                  final data = {
+                                                                    "income": income.toString(),
+                                                                    "desc_in": descIn,
+                                                                  };
+                                                                  NoBokekApi.addIncome(context, data);
+                                                                  // Navigator.pushAndRemoveUntil(
+                                                                  //     context,
+                                                                  //     MaterialPageRoute(
+                                                                  //       builder: (context) => const MainPage(
+                                                                  //         page: 3,
+                                                                  //       ),
+                                                                  //     ),
+                                                                  //     (route) => false);
+                                                                }
                                                        },
                                                         child: Text('Click ini untuk konfirmasi :)'),
                                                     ), 
@@ -240,13 +256,13 @@ class _MyAddPageState extends State<MyAddPage> {
                                   ),
                                   onChanged: (String? value2) {
                                       setState(() {
-                                      outcome = int.tryParse(value2!);
+                                      outcome = double.tryParse(value2!);
                                       });
                                   },
                                   // Menambahkan behavior saat data disimpan
                                   onSaved: (String? value2) {
                                       setState(() {
-                                      outcome = int.parse(value2!);
+                                      outcome = double.parse(value2!);
                                       });
                                   },
                                   // Validator sebagai validasi form
@@ -282,14 +298,33 @@ class _MyAddPageState extends State<MyAddPage> {
                                                       children: <Widget>[
                                                       TextButton(
                                                           onPressed:() async {
-                                                            final response = await http.post(
-                                                                Uri.parse('https://nobokekk.up.railway.app/add/add_outcome_flutter/'),
-                                                                headers: <String, String>{'Content-Type': 'application/json'},
-                                                                body: jsonEncode(<String, dynamic>{
-                                                                    'desc_out': descOut,
-                                                                    'outcome': outcome,
-                                                                })
-                                                            );
+                                                            // final response = await http.post(
+                                                            //     Uri.parse('https://nobokekk.up.railway.app/add/add_outcome_flutter/'),
+                                                            //     headers: <String, String>{'Content-Type': 'application/json'},
+                                                            //     body: jsonEncode(<String, dynamic>{
+                                                            //         'desc_out': descOut,
+                                                            //         'outcome': outcome,
+                                                            //     })
+                                                            // );
+                                                            if (outcome != null && descOut != null) {
+                                                              final data = {
+                                                                "outcome": outcome.toString(),
+                                                                "desc_out": descOut,
+                                                              };
+                                                              
+                                                              NoBokekApi.addOutcome(context, data);
+                                                              print(outcome.runtimeType);
+                                                              print(descOut.runtimeType);
+                                                              print("add outcome berhasil hore");
+                                                              // Navigator.pushAndRemoveUntil(
+                                                              //     context,
+                                                              //     MaterialPageRoute(
+                                                              //       builder: (context) => const MainPage(
+                                                              //         page: 3,
+                                                              //       ),
+                                                              //     ),
+                                                              //     (route) => false);
+                                                            }
                                                         },
                                                           child: Text('Click ini untuk konfirmasi :)'),
                                                       ), 
@@ -304,91 +339,151 @@ class _MyAddPageState extends State<MyAddPage> {
                                       ),
                               ])),
 
-                    Text('Insert your note!'),
+                    // Text('Insert your note!'),
                     Padding(
                           // Menggunakan padding sebesar 8 pixel
                           padding: const EdgeInsets.all(8.0),
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                TextFormField(
-                                    decoration: InputDecoration(
-                                        hintText: "Notes",
-                                    // Menambahkan circular border agar lebih rapi
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(5.0),
-                                    ),
-                                  ),
-                                  // Menambahkan behavior saat nama diketik
-                                    onChanged: (String? value) {
-                                        setState(() {
-                                        note = value!;
-                                        });
-                                    },
-                                    // Menambahkan behavior saat data disimpan
-                                    onSaved: (String? value) {
-                                        setState(() {
-                                        note = value!;
-                                        });
-                                    },
-                                    // Validator sebagai validasi form
-                                    validator: (String? value) {
-                                        if (value == null || value.isEmpty) {
-                                        return 'Deskripsi tidak boleh kosong!';
-                                        }
-                                        return null;
-                                    },
-                                    ),
-                                    
-                                    TextButton(
-                                        child: const Text(
-                                            "Add Note",
-                                            style: TextStyle(color: Colors.white),
-                                        ),
-                                        style: ButtonStyle(
-                                            backgroundColor: MaterialStateProperty.all(Colors.green),
-                                        ),
-                                        onPressed: () {
-                                            // if (_formKey.currentState!.validate()) {
+                                // TextFormField(
+                                //     decoration: InputDecoration(
+                                //         hintText: "Notes",
+                                //     // Menambahkan circular border agar lebih rapi
+                                //     border: OutlineInputBorder(
+                                //       borderRadius: BorderRadius.circular(5.0),
+                                //     ),
+                                //   ),
+                                //   // Menambahkan behavior saat nama diketik
+                                //     onChanged: (String? value) {
+                                //         setState(() {
+                                //         note = value!;
+                                //         });
+                                //     },
+                                //     // Menambahkan behavior saat data disimpan
+                                //     onSaved: (String? value) {
+                                //         setState(() {
+                                //         note = value!;
+                                //         });
+                                //     },
+                                //     // Validator sebagai validasi form
+                                //     validator: (String? value) {
+                                //         if (value == null || value.isEmpty) {
+                                //         return 'Deskripsi tidak boleh kosong!';
+                                //         }
+                                //         return null;
+                                //     },
+                                //     ),
+                                    Center(
+                                        child: YellowButton(
+                                          onPressed: () {
                                             showDialog(
                                                 context: context,
-                                                builder: (context) {
-                                                return Dialog(
-                                                    shape: RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.circular(10),
+                                                builder: (BuildContext context) {
+                                                  return AlertDialog(
+                                                    scrollable: true,
+                                                    title: const Text('Add your reminder!'),
+                                                    content: Padding(
+                                                      padding: const EdgeInsets.all(8.0),
+                                                      child: Form(
+                                                        child: Column(
+                                                          children: <Widget>[
+                                                            
+                                                            TextFormField(
+                                                              onChanged: (value) {
+                                                                note = value;
+                                                              },
+                                                              decoration: const InputDecoration(
+                                                                labelText: 'Note',
+                                                                icon: Icon(Icons.message),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
                                                     ),
-                                                    elevation: 15,
-                                                    child: Container(
-                                                    child: ListView(
-                                                        padding: const EdgeInsets.only(top: 20, bottom: 20),
-                                                        shrinkWrap: true,
-                                                        children: <Widget>[
-                                                        TextButton(
-                                                            onPressed:() async {
-                                                              final response = await http.post(
-                                                                  Uri.parse('https://nobokekk.up.railway.app/add/add_note_flutter/'),
-                                                                  headers: <String, String>{'Content-Type': 'application/json'},
-                                                                  body: jsonEncode(<String, dynamic>{
-                                                                      'note': note,
-                                                                  })
-                                                              );
-                                                          },
-                                                            child: Text('Click ini untuk konfirmasi :)'),
-                                                        ), 
-                                                        ],
-                                                    ),
-                                                    ),
-                                                );
-                                                },
-                                            );
-                                            // }
-                                        },
+                                                    actions: [
+                                                      YellowButton(
+                                                          label: "Submit",
+                                                          onPressed: () {
+                                                            if (note != null ) {
+                                                              final data = {
+                                                                "note": note,
+                                                              };
+                                                              NoBokekApi.addNote(context, data);
+                                                              print("hai");
+                                                              // Navigator.pushAndRemoveUntil(
+                                                              //     context,
+                                                              //     MaterialPageRoute(
+                                                              //       builder: (context) => const MainPage(
+                                                              //         page: 3,
+                                                              //       ),
+                                                              //     ),
+                                                              //     (route) => false);
+                                                            }
+                                                          }),
+                                                    ],
+                                                  );
+                                                });
+                                          },
+                                          label: "Add your reminder!",
                                         ),
+                                      ),
+                                      
+
+                                      
+                                    // TextButton(
+                                    //     child: const Text(
+                                    //         "Add Note",
+                                    //         style: TextStyle(color: Colors.white),
+                                    //     ),
+                                    //     style: ButtonStyle(
+                                    //         backgroundColor: MaterialStateProperty.all(Colors.green),
+                                    //     ),
+                                    //     onPressed: () {
+                                    //         // if (_formKey.currentState!.validate()) {
+                                    //         showDialog(
+                                    //             context: context,
+                                    //             builder: (context) {
+                                    //             return Dialog(
+                                    //                 shape: RoundedRectangleBorder(
+                                    //                 borderRadius: BorderRadius.circular(10),
+                                    //                 ),
+                                    //                 elevation: 15,
+                                    //                 child: Container(
+                                    //                 child: ListView(
+                                    //                     padding: const EdgeInsets.only(top: 20, bottom: 20),
+                                    //                     shrinkWrap: true,
+                                    //                     children: <Widget>[
+                                    //                     TextButton(
+                                    //                         onPressed:() async {
+                                    //                           final response = await http.post(
+                                    //                               Uri.parse('https://nobokekk.up.railway.app/add/add_note_flutter/'),
+                                    //                               headers: <String, String>{'Content-Type': 'application/json'},
+                                    //                               body: jsonEncode(<String, dynamic>{
+                                    //                                   'note': note,
+                                    //                               })
+                                    //                           );
+                                    //                       },
+                                    //                         child: Text('Click ini untuk konfirmasi :)'),
+                                    //                     ), 
+                                    //                     ],
+                                    //                 ),
+                                    //                 ),
+                                    //             );
+                                    //             },
+                                    //         );
+                                    //         // }
+                                    //     },
+                                    //     ),
                                 ])),
                       Expanded(
                       child: FutureBuilder(
                       future: NoBokekApi.fetchTransactions(context),
+                      // future : fetchMoney(),
                       builder: (context, AsyncSnapshot snapshot) {
+                        print(snapshot);
+                        print(snapshot.hasData);
                         if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
                           // return listview builder
                           return ListView.builder(
@@ -406,7 +501,6 @@ class _MyAddPageState extends State<MyAddPage> {
                                       )
                                       ]
                                   ),
-                                  
                                   
                                   child: Column(
                                       mainAxisAlignment: MainAxisAlignment.start,
