@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:flutter_nobokek/commons/styles/color_palettes.dart';
+import 'package:flutter_nobokek/contact/page/contact_form.dart';
 import 'package:flutter_nobokek/page/add.dart';
 import 'package:flutter_nobokek/page/forum.dart';
 import 'package:flutter_nobokek/page/home_page.dart';
@@ -46,6 +47,7 @@ class _MainPageState extends State<MainPage> {
             MyHomePage(),
             MyReportPage(),
             MyForumPage(),
+            MyContactPage(),
           ],
           onPageChanged: (index) {
             setState(() {
@@ -77,6 +79,7 @@ class _MainPageState extends State<MainPage> {
             BottomNavigationBarItem(
                 icon: Icon(Icons.attach_money), label: "Report"),
             BottomNavigationBarItem(icon: Icon(Icons.forum), label: "Forum"),
+            BottomNavigationBarItem(icon: Icon(Icons.contact_phone), label: "Contact Us"),
           ],
         ),
       ),
