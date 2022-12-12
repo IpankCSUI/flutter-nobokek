@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_nobokek/drawer.dart';
 import 'package:flutter/src/material/colors.dart';
 import 'package:flutter_nobokek/page/add.dart';
-import 'package:flutter_nobokek/page/contact.dart';
+import 'package:flutter_nobokek/contact/contact_form.dart';
 import 'package:flutter_nobokek/page/forum.dart';
 import 'package:flutter_nobokek/page/report.dart';
 import 'package:flutter_nobokek/page/statistic.dart';
@@ -103,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           return MyAddPage();
                         }));
                       },
-                      image: "https://o.remove.bg/downloads/d53fe41f-3527-4532-8375-0ec80f4de245/addflut-removebg-preview.png",
+                      image: "https://o.remove.bg/downloads/97afaa81-d3a9-4ae1-8d82-f0ca4b83789f/addflut-removebg-preview.png",
                     ),
                     CategoryCard(
                       title: "Statistic",

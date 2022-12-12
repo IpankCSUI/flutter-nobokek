@@ -1,6 +1,6 @@
 
 import 'package:flutter_nobokek/page/add.dart';
-import 'package:flutter_nobokek/page/contact.dart';
+import 'package:flutter_nobokek/contact/contact_form.dart';
 import 'package:flutter_nobokek/page/forum.dart';
 import 'package:flutter_nobokek/page/report.dart';
 import 'package:flutter_nobokek/page/statistic.dart';
