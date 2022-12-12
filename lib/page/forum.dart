@@ -4,6 +4,9 @@ import 'package:flutter_nobokek/widgets/big_text_field.dart';
 import 'package:flutter_nobokek/widgets/custom_text_field.dart';
 import 'package:flutter_nobokek/widgets/forum_card.dart';
 import 'package:flutter_nobokek/widgets/yellow_button.dart';
+import 'package:flutter_nobokek/models/pendapatForum.dart';
+import 'package:flutter_nobokek/function/api.dart';
+import 'package:flutter_nobokek/page/main_page.dart';
 
 class MyForumPage extends StatefulWidget {
   const MyForumPage({super.key});
@@ -26,12 +29,26 @@ class _MyForumPageState extends State<MyForumPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Hello, Ocit!",
-              style: Theme.of(context)
-                  .textTheme
-                  .headline6!
-                  .copyWith(fontWeight: FontWeight.bold),
+            FutureBuilder(
+              future: NoBokekApi.fetchUsername(context),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done &&
+                    snapshot.hasData) {
+                  return Text(
+                    'Hello, ${snapshot.data}!',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6!
+                        .copyWith(fontWeight: FontWeight.bold),
+                  );
+                } else if (snapshot.connectionState == ConnectionState.done &&
+                    !snapshot.hasData) {
+                  return const Text(
+                      "Gagal mendapatkan data username pengguna.");
+                } else {
+                  return const Text("Sedang mendapatkan data.");
+                }
+              },
             ),
             const SizedBox(height: 48),
             Text(
@@ -93,7 +110,25 @@ class _MyForumPageState extends State<MyForumPage> {
             Center(
               child: YellowButton(
                 label: "Tambah",
-                onPressed: () {},
+                onPressed: () {
+                  if (nama != null && jurusan != null && angkatan != null && pendapat != null) {
+                      final data = {
+                        "nama": nama,
+                        "jurusan": jurusan,
+                        "angkatan": angkatan,
+                        "pendapat": pendapat,
+                        };
+                      NoBokekApi.addForum(context,data);
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const MainPage(
+                              page: 3,
+                            ),
+                          ),
+                          (route) => false);
+                  }
+                },
               ),
             ),
             const SizedBox(height: 24),
@@ -105,21 +140,38 @@ class _MyForumPageState extends State<MyForumPage> {
                   .copyWith(fontWeight: FontWeight.w500),
             ),
             const SizedBox(height: 8),
-            GridView.builder(
-              shrinkWrap: true,
-              primary: false,
-              itemCount: 4,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 16,
-                crossAxisSpacing: 16,
-              ),
-              itemBuilder: ((context, index) {
-                return const ForumCard(
-                  nama: "-Wakway",
-                  pesan: "Cemas ko dekk bek bek bek",
-                );
-              }),
+            FutureBuilder(
+              future: NoBokekApi.fetchForum(context),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done &&
+                    snapshot.hasData) {
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    primary: false,
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: ((context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5.0),
+                        child: ForumCard(
+                          nama: snapshot.data![index].nama,
+                          jurusan: snapshot.data![index].jurusan,
+                          angkatan: snapshot.data![index].angkatan,
+                          pesan: snapshot.data![index].pendapat,
+                        ),
+                      );
+                    }),
+                  );
+                } else if (snapshot.connectionState ==
+                    ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      color: ColorPalettes.freshLemon,
+                    ),
+                  );
+                } else {
+                  return const SizedBox();
+                }
+              },
             ),
             const SizedBox(height: 8),
           ],

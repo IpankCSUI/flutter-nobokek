@@ -2,10 +2,14 @@ import "package:flutter/material.dart";
 
 class ForumCard extends StatelessWidget {
   final String nama;
+  final String jurusan;
+  final String angkatan;
   final String pesan;
   const ForumCard({
     super.key,
     required this.nama,
+    required this.jurusan,
+    required this.angkatan,
     required this.pesan,
   });
 
@@ -21,6 +25,8 @@ class ForumCard extends StatelessWidget {
         children: [
           Text(pesan),
           const Spacer(),
+          Text(jurusan),
+          Text(angkatan),
           Text(nama),
         ],
       ),
