@@ -4,15 +4,17 @@
 
 import 'dart:convert';
 
-List<Money> moneyFromJson(String str) => List<Money>.from(json.decode(str).map((x) => Money.fromJson(x)));
+List<Money> moneyFromJson(String str) => List<Money>.from(
+  json.decode(str).map((x) => Money.fromJson(x)));
 
-String moneyToJson(List<Money> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String moneyToJson(List<Money> data) => 
+  json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Money {
     Money({
-        this.model,
-        this.pk,
-        this.fields,
+        required this.model,
+        required this.pk,
+        required this.fields,
     });
 
     String model;
@@ -34,13 +36,13 @@ class Money {
 
 class Fields {
     Fields({
-        this.user,
-        this.income,
-        this.outcome,
-        this.descIn,
-        this.descOut,
-        this.date,
-        this.note,
+        required this.user,
+        required this.income,
+        required this.outcome,
+        required this.descIn,
+        required this.descOut,
+        required this.date,
+        required this.note,
     });
 
     int user;
