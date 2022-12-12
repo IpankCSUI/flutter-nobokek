@@ -1,4 +1,4 @@
-import 'package:flutter_nobokek/widgets/drawer.dart';
+
 import 'package:flutter_nobokek/models/money.dart';
 import 'package:flutter_nobokek/function/fetch_money.dart';
 import 'package:flutter_nobokek/function/api.dart';
@@ -76,7 +76,7 @@ class _MyAddPageState extends State<MyAddPage> {
       appBar: AppBar(
         title: const Text('Form Budget'),
       ),
-      drawer: LabDrawer(),
+
       body: Form(
           key: _formKey,
           child: Container(

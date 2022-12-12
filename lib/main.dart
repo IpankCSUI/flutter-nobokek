@@ -18,11 +18,16 @@ class MyApp extends StatelessWidget {
         CookieRequest request = CookieRequest();
         return request;
       },
+      
       child: MaterialApp(
         title: 'No Bokek',
-        theme: appTheme,
+        theme: ThemeData(
+        primarySwatch: Colors.green,
+        
+      ),
         home: const LoginPage(),
       ),
+      
     );
   }
 }
