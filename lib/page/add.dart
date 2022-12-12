@@ -1,9 +1,11 @@
 import 'package:flutter_nobokek/widgets/drawer.dart';
 import 'package:flutter_nobokek/models/money.dart';
 import 'package:flutter_nobokek/function/fetch_money.dart';
+import 'package:flutter_nobokek/function/api.dart';
 
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutter/material.dart';
 
 class MyAddPage extends StatefulWidget {
   const MyAddPage({super.key});
@@ -385,7 +387,7 @@ class _MyAddPageState extends State<MyAddPage> {
                                 ])),
                       Expanded(
                       child: FutureBuilder(
-                      future: fetchMoney(),
+                      future: NoBokekApi.fetchTransactions(context),
                       builder: (context, AsyncSnapshot snapshot) {
                         if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
                           // return listview builder
