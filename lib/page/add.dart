@@ -8,6 +8,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/material.dart';
 
+import '../commons/styles/color_palettes.dart';
+
 class MyAddPage extends StatefulWidget {
   const MyAddPage({super.key});
 
@@ -69,6 +71,7 @@ class _MyAddPageState extends State<MyAddPage> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
         title: const Text('Form Budget'),
@@ -313,9 +316,7 @@ class _MyAddPageState extends State<MyAddPage> {
                                                               };
                                                               
                                                               NoBokekApi.addOutcome(context, data);
-                                                              print(outcome.runtimeType);
-                                                              print(descOut.runtimeType);
-                                                              print("add outcome berhasil hore");
+                                                             
                                                               // Navigator.pushAndRemoveUntil(
                                                               //     context,
                                                               //     MaterialPageRoute(
@@ -340,150 +341,231 @@ class _MyAddPageState extends State<MyAddPage> {
                               ])),
 
                     // Text('Insert your note!'),
-                    Padding(
-                          // Menggunakan padding sebesar 8 pixel
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                // TextFormField(
-                                //     decoration: InputDecoration(
-                                //         hintText: "Notes",
-                                //     // Menambahkan circular border agar lebih rapi
-                                //     border: OutlineInputBorder(
-                                //       borderRadius: BorderRadius.circular(5.0),
-                                //     ),
-                                //   ),
-                                //   // Menambahkan behavior saat nama diketik
-                                //     onChanged: (String? value) {
-                                //         setState(() {
-                                //         note = value!;
-                                //         });
-                                //     },
-                                //     // Menambahkan behavior saat data disimpan
-                                //     onSaved: (String? value) {
-                                //         setState(() {
-                                //         note = value!;
-                                //         });
-                                //     },
-                                //     // Validator sebagai validasi form
-                                //     validator: (String? value) {
-                                //         if (value == null || value.isEmpty) {
-                                //         return 'Deskripsi tidak boleh kosong!';
-                                //         }
-                                //         return null;
-                                //     },
-                                //     ),
-                                    Center(
-                                        child: YellowButton(
-                                          onPressed: () {
-                                            showDialog(
-                                                context: context,
-                                                builder: (BuildContext context) {
-                                                  return AlertDialog(
-                                                    scrollable: true,
-                                                    title: const Text('Add your reminder!'),
-                                                    content: Padding(
-                                                      padding: const EdgeInsets.all(8.0),
-                                                      child: Form(
-                                                        child: Column(
-                                                          children: <Widget>[
+                    // Padding(
+                    //     // Menggunakan padding sebesar 8 pixel
+                    //     padding: const EdgeInsets.all(8.0),
+                    //     child: Column(
+                    //         mainAxisAlignment: MainAxisAlignment.center,
+                    //         children: [
+                    //           TextFormField(
+                    //               decoration: InputDecoration(
+                    //                   hintText: "Description Note",
+                    //               // Menambahkan circular border agar lebih rapi
+                    //               border: OutlineInputBorder(
+                    //                 borderRadius: BorderRadius.circular(5.0),
+                    //               ),
+                    //             ),
+                    //             // Menambahkan behavior saat nama diketik
+                    //               onChanged: (String? value) {
+                    //                   setState(() {
+                    //                   note = value!;
+                    //                   });
+                    //               },
+                    //               // Menambahkan behavior saat data disimpan
+                    //               onSaved: (String? value) {
+                    //                   setState(() {
+                    //                   note = value!;
+                    //                   });
+                    //               },
+                    //               // Validator sebagai validasi form
+                    //               validator: (String? value) {
+                    //                   if (value == null || value.isEmpty) {
+                    //                   return 'Deskripsi tidak boleh kosong!';
+                    //                   }
+                    //                   return null;
+                    //               },
+                    //               ),
+                                  
+                    //               TextButton(
+                    //                   child: const Text(
+                    //                       "Add Note",
+                    //                       style: TextStyle(color: Colors.white),
+                    //                   ),
+                    //                   style: ButtonStyle(
+                    //                       backgroundColor: MaterialStateProperty.all(Colors.green),
+                    //                   ),
+                    //                   onPressed: () {
+                    //                       // if (_formKey.currentState!.validate()) {
+                    //                       showDialog(
+                    //                           context: context,
+                    //                           builder: (context) {
+                    //                           return Dialog(
+                    //                               shape: RoundedRectangleBorder(
+                    //                               borderRadius: BorderRadius.circular(10),
+                    //                               ),
+                    //                               elevation: 15,
+                    //                               child: Container(
+                    //                               child: ListView(
+                    //                                   padding: const EdgeInsets.only(top: 20, bottom: 20),
+                    //                                   shrinkWrap: true,
+                    //                                   children: <Widget>[
+                    //                                   TextButton(
+                    //                                       onPressed:() async {
+                    //                                         if (note != null) {
+                    //                                                 final data = {
+                    //                                                   "note": note,
+                    //                                                 };
+                                                                    
+                    //                                                 NoBokekApi.addNote(context, data);
+                    //                                               }
+                    //                                     },
+                    //                                       child: Text('Click ini untuk konfirmasi :)'),
+                    //                                   ), 
+                    //                                   ],
+                    //                               ),
+                    //                               ),
+                    //                           );
+                    //                           },
+                    //                       );
+                    //                       // }
+                    //                   },
+                    //                   ),
+                    //           ])),
+
+                    // Text('Insert your note!'),
+                    // Padding(
+                    //       // Menggunakan padding sebesar 8 pixel
+                    //       padding: const EdgeInsets.all(8.0),
+                    //       child: Column(
+                    //           mainAxisAlignment: MainAxisAlignment.center,
+                    //           children: [
+                    //             // TextFormField(
+                    //             //     decoration: InputDecoration(
+                    //             //         hintText: "Notes",
+                    //             //     // Menambahkan circular border agar lebih rapi
+                    //             //     border: OutlineInputBorder(
+                    //             //       borderRadius: BorderRadius.circular(5.0),
+                    //             //     ),
+                    //             //   ),
+                    //             //   // Menambahkan behavior saat nama diketik
+                    //             //     onChanged: (String? value) {
+                    //             //         setState(() {
+                    //             //         note = value!;
+                    //             //         });
+                    //             //     },
+                    //             //     // Menambahkan behavior saat data disimpan
+                    //             //     onSaved: (String? value) {
+                    //             //         setState(() {
+                    //             //         note = value!;
+                    //             //         });
+                    //             //     },
+                    //             //     // Validator sebagai validasi form
+                    //             //     validator: (String? value) {
+                    //             //         if (value == null || value.isEmpty) {
+                    //             //         return 'Deskripsi tidak boleh kosong!';
+                    //             //         }
+                    //             //         return null;
+                    //             //     },
+                    //             //     ),
+                    //                 Center(
+                    //                     child: YellowButton(
+                    //                       onPressed: () {
+                    //                         showDialog(
+                    //                             context: context,
+                    //                             builder: (BuildContext context) {
+                    //                               return AlertDialog(
+                    //                                 scrollable: true,
+                    //                                 title: const Text('Add your reminder!'),
+                    //                                 content: Padding(
+                    //                                   padding: const EdgeInsets.all(8.0),
+                    //                                   child: Form(
+                    //                                     child: Column(
+                    //                                       children: <Widget>[
                                                             
-                                                            TextFormField(
-                                                              onChanged: (value) {
-                                                                note = value;
-                                                              },
-                                                              decoration: const InputDecoration(
-                                                                labelText: 'Note',
-                                                                icon: Icon(Icons.message),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    actions: [
-                                                      YellowButton(
-                                                          label: "Submit",
-                                                          onPressed: () {
-                                                            if (note != null ) {
-                                                              final data = {
-                                                                "note": note,
-                                                              };
-                                                              NoBokekApi.addNote(context, data);
-                                                              print("hai");
-                                                              // Navigator.pushAndRemoveUntil(
-                                                              //     context,
-                                                              //     MaterialPageRoute(
-                                                              //       builder: (context) => const MainPage(
-                                                              //         page: 3,
-                                                              //       ),
-                                                              //     ),
-                                                              //     (route) => false);
-                                                            }
-                                                          }),
-                                                    ],
-                                                  );
-                                                });
-                                          },
-                                          label: "Add your reminder!",
-                                        ),
-                                      ),
+                    //                                         TextFormField(
+                    //                                           onChanged: (value) {
+                    //                                             note = value;
+                    //                                           },
+                    //                                           decoration: const InputDecoration(
+                    //                                             labelText: 'Note',
+                    //                                             icon: Icon(Icons.message),
+                    //                                           ),
+                    //                                         ),
+                    //                                       ],
+                    //                                     ),
+                    //                                   ),
+                    //                                 ),
+                    //                                 actions: [
+                    //                                   YellowButton(
+                    //                                       label: "Submit",
+                    //                                       onPressed: () {
+                    //                                         if (note != null ) {
+                    //                                           final data = {
+                    //                                             "note": note.toString(),
+                    //                                           };
+                    //                                           NoBokekApi.addNote(context, data);
+                    //                                           print("hai");
+                    //                                           // Navigator.pushAndRemoveUntil(
+                    //                                           //     context,
+                    //                                           //     MaterialPageRoute(
+                    //                                           //       builder: (context) => const MainPage(
+                    //                                           //         page: 3,
+                    //                                           //       ),
+                    //                                           //     ),
+                    //                                           //     (route) => false);
+                    //                                         }
+                    //                                       }),
+                    //                                 ],
+                    //                               );
+                    //                             });
+                    //                       },
+                    //                       label: "Add your reminder!",
+                    //                     ),
+                    //                   ),
                                       
 
                                       
-                                    // TextButton(
-                                    //     child: const Text(
-                                    //         "Add Note",
-                                    //         style: TextStyle(color: Colors.white),
-                                    //     ),
-                                    //     style: ButtonStyle(
-                                    //         backgroundColor: MaterialStateProperty.all(Colors.green),
-                                    //     ),
-                                    //     onPressed: () {
-                                    //         // if (_formKey.currentState!.validate()) {
-                                    //         showDialog(
-                                    //             context: context,
-                                    //             builder: (context) {
-                                    //             return Dialog(
-                                    //                 shape: RoundedRectangleBorder(
-                                    //                 borderRadius: BorderRadius.circular(10),
-                                    //                 ),
-                                    //                 elevation: 15,
-                                    //                 child: Container(
-                                    //                 child: ListView(
-                                    //                     padding: const EdgeInsets.only(top: 20, bottom: 20),
-                                    //                     shrinkWrap: true,
-                                    //                     children: <Widget>[
-                                    //                     TextButton(
-                                    //                         onPressed:() async {
-                                    //                           final response = await http.post(
-                                    //                               Uri.parse('https://nobokekk.up.railway.app/add/add_note_flutter/'),
-                                    //                               headers: <String, String>{'Content-Type': 'application/json'},
-                                    //                               body: jsonEncode(<String, dynamic>{
-                                    //                                   'note': note,
-                                    //                               })
-                                    //                           );
-                                    //                       },
-                                    //                         child: Text('Click ini untuk konfirmasi :)'),
-                                    //                     ), 
-                                    //                     ],
-                                    //                 ),
-                                    //                 ),
-                                    //             );
-                                    //             },
-                                    //         );
-                                    //         // }
-                                    //     },
-                                    //     ),
-                                ])),
+                    //                 // TextButton(
+                    //                 //     child: const Text(
+                    //                 //         "Add Note",
+                    //                 //         style: TextStyle(color: Colors.white),
+                    //                 //     ),
+                    //                 //     style: ButtonStyle(
+                    //                 //         backgroundColor: MaterialStateProperty.all(Colors.green),
+                    //                 //     ),
+                    //                 //     onPressed: () {
+                    //                 //         // if (_formKey.currentState!.validate()) {
+                    //                 //         showDialog(
+                    //                 //             context: context,
+                    //                 //             builder: (context) {
+                    //                 //             return Dialog(
+                    //                 //                 shape: RoundedRectangleBorder(
+                    //                 //                 borderRadius: BorderRadius.circular(10),
+                    //                 //                 ),
+                    //                 //                 elevation: 15,
+                    //                 //                 child: Container(
+                    //                 //                 child: ListView(
+                    //                 //                     padding: const EdgeInsets.only(top: 20, bottom: 20),
+                    //                 //                     shrinkWrap: true,
+                    //                 //                     children: <Widget>[
+                    //                 //                     TextButton(
+                    //                 //                         onPressed:() async {
+                    //                 //                           final response = await http.post(
+                    //                 //                               Uri.parse('https://nobokekk.up.railway.app/add/add_note_flutter/'),
+                    //                 //                               headers: <String, String>{'Content-Type': 'application/json'},
+                    //                 //                               body: jsonEncode(<String, dynamic>{
+                    //                 //                                   'note': note,
+                    //                 //                               })
+                    //                 //                           );
+                    //                 //                       },
+                    //                 //                         child: Text('Click ini untuk konfirmasi :)'),
+                    //                 //                     ), 
+                    //                 //                     ],
+                    //                 //                 ),
+                    //                 //                 ),
+                    //                 //             );
+                    //                 //             },
+                    //                 //         );
+                    //                 //         // }
+                    //                 //     },
+                    //                 //     ),
+                    //             ])),
+                      Text('This is your piggybank income!'),
                       Expanded(
                       child: FutureBuilder(
                       future: NoBokekApi.fetchTransactions(context),
                       // future : fetchMoney(),
                       builder: (context, AsyncSnapshot snapshot) {
-                        print(snapshot);
-                        print(snapshot.hasData);
                         if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
                           // return listview builder
                           return ListView.builder(
@@ -506,17 +588,17 @@ class _MyAddPageState extends State<MyAddPage> {
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        snapshot.data![index].fields.note != null ?
+                                        snapshot.data![index].fields.descIn != null?
                                       Text(
-                                          "${snapshot.data![index].fields.note}",
+                                          "${snapshot.data![index].fields.descIn}",
                                           style: const TextStyle(
                                           fontSize: 18.0,
                                           fontWeight: FontWeight.bold,
                                           ),
-                                      ): const SizedBox(),
+                                      ): 
+                                      const SizedBox.shrink(),
                                       
-                                      // const SizedBox(height: 10),
-                                      // Text("${snapshot.data![index].completed}"),
+                                      
                                       ],
                                   ),
                                   )
@@ -536,7 +618,9 @@ class _MyAddPageState extends State<MyAddPage> {
                               );
                         } else {
                           // loading
-                          return const Center(child: CircularProgressIndicator());
+                          return const Center(child: CircularProgressIndicator(
+                            color: ColorPalettes.freshLemon,
+                          ));
                         }
                           // if (snapshot.data == null) {
                           // return const Center(child: CircularProgressIndicator());

@@ -112,10 +112,8 @@ class NoBokekApi {
     try {
       await request.post(url, data);
       log("mas");
-      print("berhasil outcome");
       // return true;
     } catch (error) {
-      print(error);
       log("ERROR: $error");
       // return false;
     }
