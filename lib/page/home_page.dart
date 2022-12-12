@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import 'package:flutter_nobokek/contact/page/contact_form.dart';
+import 'package:flutter_nobokek/page/contact_form.dart';
 import 'package:flutter_nobokek/page/add.dart';
 import 'package:flutter_nobokek/page/report_page.dart';
 import 'package:flutter_nobokek/page/forum.dart';

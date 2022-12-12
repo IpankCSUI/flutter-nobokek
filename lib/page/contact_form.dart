@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_nobokek/main.dart';
 import 'package:flutter_nobokek/page/home_page.dart';
+import 'package:flutter_nobokek/page/main_page.dart';
 import 'package:flutter_nobokek/widgets/contact_card.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import '../../commons/styles/color_palettes.dart';
-import '../../function/api.dart';
-import '../../widgets/target_card.dart';
-import '../../widgets/yellow_button.dart';
+import '../commons/styles/color_palettes.dart';
+import '../function/api.dart';
+import '../widgets/target_card.dart';
+import '../widgets/yellow_button.dart';
 
 class MyContactPage extends StatefulWidget {
   const MyContactPage({super.key});
@@ -27,12 +28,9 @@ class MyContactPage extends StatefulWidget {
 
 class _MyContactPageState extends State<MyContactPage> {
   final _formKey = GlobalKey<FormState>();
-  String _nama = "";
-  String _email = "";
-  String _kendala = "";
-  List<String> _jenis = ['Pemasukan', 'Pengeluaran'];
-  var _jenisTerpilih = null;
-
+  String? _nama;
+  String? _email;
+  String? _kendala;
   TextEditingController dateInput = TextEditingController();
 
   @override
@@ -89,7 +87,6 @@ class _MyContactPageState extends State<MyContactPage> {
                     },
                   ),
                 ),
-
                 Padding(
                   // Menggunakan padding sebesar 8 pixels
                   padding: const EdgeInsets.all(8.0),
@@ -124,7 +121,7 @@ class _MyContactPageState extends State<MyContactPage> {
                       return null;
                     },
                   ),
-                ), 
+                ),
                 Padding(
                   // Menggunakan padding sebesar 8 pixels
                   padding: const EdgeInsets.all(8.0),
@@ -159,7 +156,7 @@ class _MyContactPageState extends State<MyContactPage> {
                       return null;
                     },
                   ),
-                ), 
+                ),
                 TextFormField(
                   controller: dateInput,
                   decoration: InputDecoration(
@@ -182,42 +179,40 @@ class _MyContactPageState extends State<MyContactPage> {
                     } else {}
                   },
                 ),
-                TextButton(
-                  child: const Text(
-                    "Send",
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.green),
-                    padding: MaterialStateProperty.all<EdgeInsets>(
-                        EdgeInsets.all(16)),
-                  ),
-                  onPressed: () {
-                    if (_nama != null && _email != null && _kendala != null && dateInput != null) {
-                      final data = {
-                        "nama": _nama,
-                        "email": _email,
-                        "kendala": _kendala,
-                        "dateInput": dateInput,
-                      };
-                      NoBokekApi.addProblem(context, data);
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const MyHomePage(
+                Center(
+                  child: YellowButton(
+                    label: "Send",
+                    onPressed: () {
+                      if (_nama != null &&
+                          _email != null &&
+                          _kendala != null) {
+                        final data = {
+                          "nama": _nama,
+                          "alamat": _email,
+                          "masalah": _kendala,
+                        };
+                        NoBokekApi.addProblem(context, data);
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const MainPage(
+                                page: 5,
+                              ),
                             ),
-                          ),
-                          (route) => false);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Data berhasil disimpan!'),
-                          backgroundColor: Colors.green,
-                        ),
-                      );
-                    }
-                  }
+                            (route) => false);
+                      }
+                    },
+                  ),
                 ),
-                FutureBuilder(
+                const SizedBox(height: 24),
+                Text(
+                  "Daftar Kendala",
+                  style: Theme.of(context)
+                      .textTheme
+                      .subtitle1!
+                      .copyWith(fontWeight: FontWeight.w500),
+                ),
+            FutureBuilder(
               future: NoBokekApi.fetchContact(context),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done &&
@@ -230,10 +225,8 @@ class _MyContactPageState extends State<MyContactPage> {
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5.0),
                         child: ContactCard(
-                          nama: snapshot.data![index].fields.nama,
-                          kendala: snapshot.data![index].fields.masalah,
-                          onPressed: () {
-                          },
+                          nama: snapshot.data![index].nama,
+                          masalah: snapshot.data![index].masalah,
                         ),
                       );
                     }),
@@ -250,7 +243,6 @@ class _MyContactPageState extends State<MyContactPage> {
                 }
               },
             ),
-                
               ],
             ),
           ),
