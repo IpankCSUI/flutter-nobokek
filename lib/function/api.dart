@@ -181,5 +181,20 @@ static Future<void> addForum(
       // return false;
     }
   }
+  static Future<void> addProblem(
+    BuildContext context,
+    Map<String, dynamic> data,
+  ) async {
+    const url = "https://nobokekk.up.railway.app/nobokek/create_problem//";
+    final request = Provider.of<CookieRequest>(context, listen: false);
+    try {
+      await request.post(url, data);
+      log("mas");
+      // return true;
+    } catch (error) {
+      log("ERROR: $error");
+      // return false;
+    }
+  }
 }
 
