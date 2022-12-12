@@ -19,6 +19,7 @@ dependencies:
   intl: ^0.17.0
   pbp_django_auth: ^0.3.0
   url_launcher: ^6.1.7
+  firebase_auth: ^4.2.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
