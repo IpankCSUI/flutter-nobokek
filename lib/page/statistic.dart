@@ -128,8 +128,7 @@ class _MyStatisticPage extends State<MyStatisticPage> {
                       } else {
                         return const Text("Sedang mendapatkan data.");
                       }
-                    }
-                    ),
+                    }),
                   ),
                   const Text(
                     "Income-Outcome-Conclusion-Target Statistic",
