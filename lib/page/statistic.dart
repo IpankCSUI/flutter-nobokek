@@ -115,63 +115,63 @@ class _MyStatisticPage extends State<MyStatisticPage> {
                   Expanded(
                     child: charts.BarChart(timeline, animate: true),
                   ),
-                  Center(
-                    child: YellowButton(
-                      onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                scrollable: true,
-                                title: const Text('Tetapkan target mingguan-mu'),
-                                content: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Form(
-                                    child: Column(
-                                      children: <Widget>[
-                                        TextFormField(
-                                          decoration: const InputDecoration(
-                                            labelText: 'Target',
-                                            icon: Icon(Icons.attach_money),
-                                          ),
-                                        ),
-                                        TextFormField(
-                                          decoration: const InputDecoration(
-                                            labelText: 'Week',
-                                            icon: Icon(Icons.message),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                actions: [
-                                  YellowButton(
-                                      label: "Submit",
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      }),
-                                ],
-                              );
-                            });
-                      },
-                      label: "Tetapkan target mingguan-mu",
-                    ),
-                  ),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    primary: false,
-                    // itemCount: dummyTarget.length,
-                    itemBuilder: ((context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 5.0),
-                        // child: StatisticTarget(
-                        //   title: dummyTarget[index]["title"],
-                        //   message: dummyTarget[index]["message"],
-                        // ),
-                      );
-                    }),
-                  ),
+                  // Center(
+                  //   child: YellowButton(
+                  //     onPressed: () {
+                  //       showDialog(
+                  //           context: context,
+                  //           builder: (BuildContext context) {
+                  //             return AlertDialog(
+                  //               scrollable: true,
+                  //               title: const Text('Tetapkan target mingguan-mu'),
+                  //               content: Padding(
+                  //                 padding: const EdgeInsets.all(8.0),
+                  //                 child: Form(
+                  //                   child: Column(
+                  //                     children: <Widget>[
+                  //                       TextFormField(
+                  //                         decoration: const InputDecoration(
+                  //                           labelText: 'Target',
+                  //                           icon: Icon(Icons.attach_money),
+                  //                         ),
+                  //                       ),
+                  //                       TextFormField(
+                  //                         decoration: const InputDecoration(
+                  //                           labelText: 'Week',
+                  //                           icon: Icon(Icons.message),
+                  //                         ),
+                  //                       ),
+                  //                     ],
+                  //                   ),
+                  //                 ),
+                  //               ),
+                  //               actions: [
+                  //                 YellowButton(
+                  //                     label: "Submit",
+                  //                     onPressed: () {
+                  //                       Navigator.pop(context);
+                  //                     }),
+                  //               ],
+                  //             );
+                  //           });
+                  //     },
+                  //     label: "Tetapkan target mingguan-mu",
+                  //   ),
+                  // ),
+                  // ListView.builder(
+                  //   shrinkWrap: true,
+                  //   primary: false,
+                  //   // itemCount: dummyTarget.length,
+                  //   itemBuilder: ((context, index) {
+                  //     return Padding(
+                  //       padding: const EdgeInsets.symmetric(vertical: 5.0),
+                  //       // child: StatisticTarget(
+                  //       //   title: dummyTarget[index]["title"],
+                  //       //   message: dummyTarget[index]["message"],
+                  //       // ),
+                  //     );
+                  //   }),
+                  // ),
                 ],
               ),
             ),
