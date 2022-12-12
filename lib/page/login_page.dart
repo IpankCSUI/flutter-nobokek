@@ -10,6 +10,7 @@ import 'package:flutter_nobokek/widgets/white_text_field.dart';
 import 'package:flutter_nobokek/widgets/yellow_button.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -67,14 +68,8 @@ class _LoginPageState extends State<LoginPage> {
                     const Spacer(),
                     InkWell(
                       child: const Text("Sign Up"),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (ctx) => const RegisterPage(),
-                          ),
-                        );
-                      },
+                      onTap: () => launch('https://nobokekk.up.railway.app/nobokek/register/')
+
                     )
                   ],
                 ),
