@@ -1,13 +1,15 @@
 import "package:flutter/material.dart";
 import 'package:flutter_nobokek/commons/styles/color_palettes.dart';
 
-class StatisticTarget extends StatelessWidget {
+class TargetCard extends StatelessWidget {
   final String title;
   final String message;
-  const StatisticTarget({
+  final VoidCallback onPressed;
+  const TargetCard({
     super.key,
     required this.title,
     required this.message,
+    required this.onPressed,
   });
 
   @override
@@ -35,15 +37,15 @@ class StatisticTarget extends StatelessWidget {
               Text(message),
             ],
           ),
-          // const Spacer(),
-          // Text(
-          //   message,
-          //   style: Theme.of(context)
-          //       .textTheme
-          //       .bodyText1!
-          //       .copyWith(fontWeight: FontWeight.bold),
-          // ),
-          // const SizedBox(width: 16),
+          const Spacer(),
+          TextButton(
+            onPressed: onPressed,
+            child: Text("Terpenuhi",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1!
+                    .copyWith(color: Colors.red)),
+          ),
         ],
       ),
     );
