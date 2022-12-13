@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_nobokek/contact/model/MyContact.dart';
+import 'package:flutter_nobokek/models/contact.dart';
 import 'package:flutter_nobokek/models/money.dart';
 import 'package:flutter_nobokek/models/reportmodels.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
@@ -57,22 +57,6 @@ class NoBokekApi {
     }
   }
 
-  static Future<List<ContactList>?> fetchContact(BuildContext context) async {
-    const url = "https://nobokekk.up.railway.app/nobokek/json/";
-    final request = Provider.of<CookieRequest>(context, listen: false);
-    List<ContactList> listContact = [];
-    try {
-      final response = await request.get(url) as List<dynamic>;
-      for (var i = 0; i < response.length; i++) {
-        final contact = ContactList.fromJson(response[i]);
-        listContact.add(contact);
-      }
-      return listContact;
-    } catch (error) {
-      log("ERROR: $error");
-      return null;
-    }
-  }
   static Future<void> addTarget(
     BuildContext context,
     Map<String, dynamic> data,
@@ -166,6 +150,24 @@ class NoBokekApi {
       return null;
     }
   }
+
+  static Future<List<ContactList>?> fetchContact(BuildContext context) async {
+    const url = "https://nobokekk.up.railway.app/nobokek/json/";
+    final request = Provider.of<CookieRequest>(context, listen: false);
+    List<ContactList> listData = [];
+    try {
+      final response = await request.get(url) as List<dynamic>;
+      for (var i = 0; i < response.length; i++) {
+        final data = ContactList.fromJson(response[i]);
+        listData.add(data);
+      }
+      return listData;
+    } catch (error) {
+      log("ERROR: $error");
+      return null;
+    }
+  }
+
 static Future<void> addForum(
     BuildContext context,
     Map<String, dynamic> data,
@@ -181,11 +183,12 @@ static Future<void> addForum(
       // return false;
     }
   }
+
   static Future<void> addProblem(
     BuildContext context,
     Map<String, dynamic> data,
   ) async {
-    const url = "https://nobokekk.up.railway.app/nobokek/create_problem//";
+    const url = "https://nobokekk.up.railway.app/nobokek/create_problem/";
     final request = Provider.of<CookieRequest>(context, listen: false);
     try {
       await request.post(url, data);
