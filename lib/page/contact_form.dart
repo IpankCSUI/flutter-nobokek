@@ -183,9 +183,7 @@ class _MyContactPageState extends State<MyContactPage> {
                   child: YellowButton(
                     label: "Send",
                     onPressed: () {
-                      if (_nama != null &&
-                          _email != null &&
-                          _kendala != null) {
+                      if (_nama != null && _email != null && _kendala != null) {
                         final data = {
                           "nama": _nama,
                           "alamat": _email,
@@ -212,37 +210,37 @@ class _MyContactPageState extends State<MyContactPage> {
                       .subtitle1!
                       .copyWith(fontWeight: FontWeight.w500),
                 ),
-            FutureBuilder(
-              future: NoBokekApi.fetchContact(context),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done &&
-                    snapshot.hasData) {
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    primary: false,
-                    itemCount: snapshot.data!.length,
-                    itemBuilder: ((context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 5.0),
-                        child: ContactCard(
-                          nama: snapshot.data![index].nama,
-                          masalah: snapshot.data![index].masalah,
+                FutureBuilder(
+                  future: NoBokekApi.fetchContact(context),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done &&
+                        snapshot.hasData) {
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        primary: false,
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: ((context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 5.0),
+                            child: ContactCard(
+                              alamat: snapshot.data![index].alamat,
+                              masalah: snapshot.data![index].masalah
+                            ),
+                          );
+                        }),
+                      );
+                    } else if (snapshot.connectionState ==
+                        ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(
+                          color: ColorPalettes.freshLemon,
                         ),
                       );
-                    }),
-                  );
-                } else if (snapshot.connectionState ==
-                    ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(
-                      color: ColorPalettes.freshLemon,
-                    ),
-                  );
-                } else {
-                  return const SizedBox();
-                }
-              },
-            ),
+                    } else {
+                      return const SizedBox();
+                    }
+                  },
+                ),
               ],
             ),
           ),

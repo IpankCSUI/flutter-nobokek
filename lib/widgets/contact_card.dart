@@ -2,12 +2,12 @@ import "package:flutter/material.dart";
 import 'package:flutter_nobokek/commons/styles/color_palettes.dart';
 
 class ContactCard extends StatelessWidget {
-  final String nama;
+  final String alamat;
   final String masalah;
   
   const ContactCard({
     super.key,
-    required this.nama,
+    required this.alamat,
     required this.masalah,
   });
 
@@ -26,7 +26,7 @@ class ContactCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                nama,
+                alamat,
                 style: Theme.of(context)
                     .textTheme
                     .bodyText1!

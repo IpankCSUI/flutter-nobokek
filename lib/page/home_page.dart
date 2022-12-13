@@ -4,7 +4,6 @@ import 'package:flutter_nobokek/page/add.dart';
 import 'package:flutter_nobokek/page/report_page.dart';
 import 'package:flutter_nobokek/page/forum.dart';
 import 'package:flutter_nobokek/page/statistic.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../commons/styles/color_palettes.dart';
