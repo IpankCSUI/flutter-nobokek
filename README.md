@@ -40,3 +40,8 @@ Platform (website dan aplikasi) ini dibuat untuk membantu mempermudah pengelolaa
 - Membuat http request ke web service menggunakan dependency http.
 - Mengkonversikan objek yang didapatkan dari web service ke model yang telah kita buat di langkah kedua.
 - Menampilkan data yang telah dikonversi ke aplikasi dengan `FutureBuilder`.
+
+## 📱 Tautan Aplikasi 📱
+[Github Release](https://github.com/IpankCSUI/flutter-nobokek/releases/tag/v1.0.0)
+
+
