@@ -4,9 +4,9 @@ name: Staging
 on:
   # Triggers the workflow on push or pull request events but only for the develop branch
   push:
-    branches: [staging]
+    branches: [main]
   pull_request:
-    branches: [staging]
+    branches: [main]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -37,4 +37,4 @@ jobs:
         run: flutter pub get
         
       - name: Analyze
-        run: flutter analyze
+        run: flutter analyze --no-fatal-infos --no-fatal-warnings
