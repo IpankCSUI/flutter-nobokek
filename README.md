@@ -48,6 +48,6 @@ Platform (website dan aplikasi) ini dibuat untuk membantu mempermudah pengelolaa
 
 [App Center Release (Cloud Platform)](https://install.appcenter.ms/orgs/nobokek/apps/nobokek/distribution_groups/public)
 
-## Update Terakhir
+## ⬆️ Update Terakhir ⬆️
 1. Merelease Aplikasi Melalui Github Actions
 2. Pada Fitur Contact Us Sudah Berhasil Fetch Data Melalui Web Service, Tapi Belum Bisa Post Data
