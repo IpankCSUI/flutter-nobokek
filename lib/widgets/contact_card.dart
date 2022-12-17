@@ -2,14 +2,13 @@ import "package:flutter/material.dart";
 import 'package:flutter_nobokek/commons/styles/color_palettes.dart';
 
 class ContactCard extends StatelessWidget {
-  final String nama;
-  final String kendala;
-  final VoidCallback onPressed;
+  final String alamat;
+  final String masalah;
+  
   const ContactCard({
     super.key,
-    required this.nama,
-    required this.kendala,
-    required this.onPressed,
+    required this.alamat,
+    required this.masalah,
   });
 
   @override
@@ -27,25 +26,18 @@ class ContactCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                nama,
+                alamat,
                 style: Theme.of(context)
                     .textTheme
                     .bodyText1!
                     .copyWith(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 4),
-              Text(kendala),
+              Text(masalah),
             ],
           ),
           const Spacer(),
-          TextButton(
-            onPressed: onPressed,
-            child: Text("Terpenuhi",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText1!
-                    .copyWith(color: Colors.red)),
-          ),
+
           // Text(
           //   message,
           //   style: Theme.of(context)
