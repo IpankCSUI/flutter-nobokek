@@ -42,6 +42,6 @@ Platform (website dan aplikasi) ini dibuat untuk membantu mempermudah pengelolaa
 - Menampilkan data yang telah dikonversi ke aplikasi dengan `FutureBuilder`.
 
 ## 📱 Tautan Aplikasi 📱
-[Github Release](https://github.com/IpankCSUI/flutter-nobokek/releases/tag/v1.0.0)
-[App Center Release](install.appcenter.ms/orgs/nobokek/apps/nobokek/distribution_groups/public)
+[Github Release](https://github.com/IpankCSUI/flutter-nobokek/releases/tag/1.0.0%2B1) <br />
+[App Center Release (Cloud Platform)](install.appcenter.ms/orgs/nobokek/apps/nobokek/distribution_groups/public) <br />
 [![Build status](https://build.appcenter.ms/v0.1/apps/5d2906e5-aea2-4b2f-b4f7-34b97b8ea9ea/branches/main/badge)](https://appcenter.ms)
