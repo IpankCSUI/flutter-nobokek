@@ -1,5 +1,7 @@
 # 👷‍♂️ Proyek Akhir Semester Kelompok E12 - NoBokek 👷‍♀️
 
+[![Build status](https://build.appcenter.ms/v0.1/apps/5d2906e5-aea2-4b2f-b4f7-34b97b8ea9ea/branches/main/badge)](https://appcenter.ms)
+
 ## 🙋‍♂️ Nama anggota kelompok 🙋‍♀️
 1. Ian Suryadi Timothy H (2106750875)
 2. Irfan Satya Hendrasto (2106751682)
@@ -40,3 +42,12 @@ Platform (website dan aplikasi) ini dibuat untuk membantu mempermudah pengelolaa
 - Membuat http request ke web service menggunakan dependency http.
 - Mengkonversikan objek yang didapatkan dari web service ke model yang telah kita buat di langkah kedua.
 - Menampilkan data yang telah dikonversi ke aplikasi dengan `FutureBuilder`.
+
+## 📱 Tautan Aplikasi 📱
+[Github Release](https://github.com/IpankCSUI/flutter-nobokek/releases/tag/1.0.0%2B1)
+
+[App Center Release (Cloud Platform)](https://install.appcenter.ms/orgs/nobokek/apps/nobokek/distribution_groups/public)
+
+## ⬆️ Update Terakhir ⬆️
+1. Merelease Aplikasi Melalui Github Actions
+2. Pada Fitur Contact Us Sudah Berhasil Fetch Data Melalui Web Service, Tapi Belum Bisa Post Data

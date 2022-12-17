@@ -4,11 +4,19 @@ import 'package:flutter_nobokek/commons/styles/color_palettes.dart';
 class ContactCard extends StatelessWidget {
   final String alamat;
   final String masalah;
+<<<<<<< HEAD
   
+=======
+  final VoidCallback onPressed;
+>>>>>>> 58fff21aa06355b7bf0b8067b9d45dc93442ae2b
   const ContactCard({
     super.key,
     required this.alamat,
     required this.masalah,
+<<<<<<< HEAD
+=======
+    required this.onPressed,
+>>>>>>> 58fff21aa06355b7bf0b8067b9d45dc93442ae2b
   });
 
   @override
