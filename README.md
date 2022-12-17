@@ -46,4 +46,6 @@ Platform (website dan aplikasi) ini dibuat untuk membantu mempermudah pengelolaa
 
 [App Center Release (Cloud Platform)](install.appcenter.ms/orgs/nobokek/apps/nobokek/distribution_groups/public)
 
+[Tutorial 0](https://pbp-fasilkom-ui.github.io/ganjil-2023/assignments/tutorial/tutorial-0)
+
 [![Build status](https://build.appcenter.ms/v0.1/apps/5d2906e5-aea2-4b2f-b4f7-34b97b8ea9ea/branches/main/badge)](https://appcenter.ms)
