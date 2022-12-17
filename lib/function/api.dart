@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_nobokek/contact/model/MyContact.dart';
+import 'package:flutter_nobokek/models/myContact.dart';
 import 'package:flutter_nobokek/models/money.dart';
 import 'package:flutter_nobokek/models/reportmodels.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
@@ -166,6 +166,7 @@ class NoBokekApi {
       return null;
     }
   }
+  
 static Future<void> addForum(
     BuildContext context,
     Map<String, dynamic> data,

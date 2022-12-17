@@ -2,13 +2,13 @@ import "package:flutter/material.dart";
 import 'package:flutter_nobokek/commons/styles/color_palettes.dart';
 
 class ContactCard extends StatelessWidget {
-  final String nama;
-  final String kendala;
+  final String alamat;
+  final String masalah;
   final VoidCallback onPressed;
   const ContactCard({
     super.key,
-    required this.nama,
-    required this.kendala,
+    required this.alamat,
+    required this.masalah,
     required this.onPressed,
   });
 
@@ -27,14 +27,14 @@ class ContactCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                nama,
+                alamat,
                 style: Theme.of(context)
                     .textTheme
                     .bodyText1!
                     .copyWith(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 4),
-              Text(kendala),
+              Text(masalah),
             ],
           ),
           const Spacer(),
