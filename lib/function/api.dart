@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_nobokek/models/contact.dart';
+import 'package:flutter_nobokek/models/myContact.dart';
 import 'package:flutter_nobokek/models/money.dart';
 import 'package:flutter_nobokek/models/reportmodels.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
@@ -56,7 +56,22 @@ class NoBokekApi {
       return null;
     }
   }
-
+  static Future<List<Contact>?> fetchContact(BuildContext context) async {
+    const url = "https://nobokekk.up.railway.app/nobokek/json/";
+    final request = Provider.of<CookieRequest>(context, listen: false);
+    List<Contact> listTarget = [];
+    try {
+      final response = await request.get(url) as List<dynamic>;
+      for (var i = 0; i < response.length; i++) {
+        final target = Contact.fromJson(response[i]);
+        listTarget.add(target);
+      }
+      return listTarget;
+    } catch (error) {
+      log("ERROR: $error");
+      return null;
+    }
+  }
   static Future<void> addTarget(
     BuildContext context,
     Map<String, dynamic> data,
@@ -150,7 +165,7 @@ class NoBokekApi {
       return null;
     }
   }
-
+  
 static Future<void> addForum(
     BuildContext context,
     Map<String, dynamic> data,
@@ -166,24 +181,6 @@ static Future<void> addForum(
       // return false;
     }
   }
-
-  static Future<List<ContactList>?> fetchContact(BuildContext context) async {
-    const url = "https://nobokekk.up.railway.app/nobokek/json/";
-    final request = Provider.of<CookieRequest>(context, listen: false);
-    List<ContactList> listData = [];
-    try {
-      final response = await request.get(url) as List<dynamic>;
-      for (var i = 0; i < response.length; i++) {
-        final data = ContactList.fromJson(response[i]);
-        listData.add(data);
-      }
-      return listData;
-    } catch (error) {
-      log("ERROR: $error");
-      return null;
-    }
-  }
-  
   static Future<void> addProblem(
     BuildContext context,
     Map<String, dynamic> data,

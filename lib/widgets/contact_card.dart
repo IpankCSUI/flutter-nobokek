@@ -4,11 +4,12 @@ import 'package:flutter_nobokek/commons/styles/color_palettes.dart';
 class ContactCard extends StatelessWidget {
   final String alamat;
   final String masalah;
-  
+  final VoidCallback onPressed;
   const ContactCard({
     super.key,
     required this.alamat,
     required this.masalah,
+    required this.onPressed,
   });
 
   @override
@@ -37,7 +38,14 @@ class ContactCard extends StatelessWidget {
             ],
           ),
           const Spacer(),
-
+          TextButton(
+            onPressed: onPressed,
+            child: Text("Terpenuhi",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1!
+                    .copyWith(color: Colors.red)),
+          ),
           // Text(
           //   message,
           //   style: Theme.of(context)

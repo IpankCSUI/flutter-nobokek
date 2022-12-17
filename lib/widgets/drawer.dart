@@ -1,6 +1,6 @@
 
 import 'package:flutter_nobokek/page/add.dart';
-import 'package:flutter_nobokek/page/contact_form.dart';
+
 import 'package:flutter_nobokek/page/forum.dart';
 import 'package:flutter_nobokek/page/home_page.dart';
 import 'package:flutter_nobokek/page/report_page.dart';
@@ -75,17 +75,7 @@ class _LabDrawerState extends State<LabDrawer> {
               );
             },
           ),
-          ListTile(
-            title: const Text("Contact Us"),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (ctx) => const MyContactPage(),
-                ),
-              );
-            },
-          )
+
         ],
       ),
     );

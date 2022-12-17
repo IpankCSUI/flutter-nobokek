@@ -28,9 +28,10 @@ class MyContactPage extends StatefulWidget {
 
 class _MyContactPageState extends State<MyContactPage> {
   final _formKey = GlobalKey<FormState>();
-  String? _nama;
-  String? _email;
-  String? _kendala;
+  String? nama;
+  String? alamat;
+  String? masalah;
+
   TextEditingController dateInput = TextEditingController();
 
   @override
@@ -69,13 +70,13 @@ class _MyContactPageState extends State<MyContactPage> {
                     // Menambahkan behavior saat nama diketik
                     onChanged: (String? value) {
                       setState(() {
-                        _nama = value!;
+                        nama = value!;
                       });
                     },
                     // Menambahkan behavior saat data disimpan
                     onSaved: (String? value) {
                       setState(() {
-                        _nama = value!;
+                        nama = value!;
                       });
                     },
                     // Validator sebagai validasi form
@@ -104,13 +105,13 @@ class _MyContactPageState extends State<MyContactPage> {
                     // Menambahkan behavior saat nama diketik
                     onChanged: (String? value) {
                       setState(() {
-                        _email = value!;
+                        alamat = value!;
                       });
                     },
                     // Menambahkan behavior saat data disimpan
                     onSaved: (String? value) {
                       setState(() {
-                        _email = value!;
+                        alamat = value!;
                       });
                     },
                     // Validator sebagai validasi form
@@ -139,13 +140,13 @@ class _MyContactPageState extends State<MyContactPage> {
                     // Menambahkan behavior saat nama diketik
                     onChanged: (String? value) {
                       setState(() {
-                        _kendala = value!;
+                        masalah = value!;
                       });
                     },
                     // Menambahkan behavior saat data disimpan
                     onSaved: (String? value) {
                       setState(() {
-                        _kendala = value!;
+                        masalah = value!;
                       });
                     },
                     // Validator sebagai validasi form
@@ -179,68 +180,68 @@ class _MyContactPageState extends State<MyContactPage> {
                     } else {}
                   },
                 ),
-                Center(
-                  child: YellowButton(
-                    label: "Send",
-                    onPressed: () {
-                      if (_nama != null && _email != null && _kendala != null) {
-                        final data = {
-                          "nama": _nama,
-                          "alamat": _email,
-                          "masalah": _kendala,
-                        };
-                        NoBokekApi.addProblem(context, data);
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const MainPage(
-                                page: 5,
-                              ),
+                YellowButton(
+                  label: "Send",
+                  onPressed: () {
+                    if (alamat != null && masalah != null) {
+                      final data = {
+                        "alamat": alamat,
+                        "masalah": masalah,
+                      };
+                      NoBokekApi.addProblem(context, data);
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const MainPage(
+                              page: 5,
                             ),
-                            (route) => false);
-                      }
-                    },
-                  ),
-                ),
-                const SizedBox(height: 24),
-                Text(
-                  "Daftar Kendala",
-                  style: Theme.of(context)
-                      .textTheme
-                      .subtitle1!
-                      .copyWith(fontWeight: FontWeight.w500),
-                ),
-                FutureBuilder(
-                  future: NoBokekApi.fetchContact(context),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done &&
-                        snapshot.hasData) {
-                      return ListView.builder(
-                        shrinkWrap: true,
-                        primary: false,
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: ((context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 5.0),
-                            child: ContactCard(
-                              alamat: snapshot.data![index].alamat,
-                              masalah: snapshot.data![index].masalah
-                            ),
-                          );
-                        }),
-                      );
-                    } else if (snapshot.connectionState ==
-                        ConnectionState.waiting) {
-                      return const Center(
-                        child: CircularProgressIndicator(
-                          color: ColorPalettes.freshLemon,
+                          ),
+                          (route) => false);
+                    }
+                  }),
+            FutureBuilder(
+              future: NoBokekApi.fetchContact(context),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done &&
+                    snapshot.hasData) {
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    primary: false,
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: ((context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5.0),
+                        child: TargetCard(
+                          title: snapshot.data![index].fields.alamat,
+                          message: snapshot.data![index].fields.masalah,
+                          onPressed: () {
+                            NoBokekApi.deleteTarget(
+                                context, snapshot.data![index].pk);
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const MainPage(
+                                    page: 5,
+                                  ),
+                                ),
+                                (route) => false);
+                          },
                         ),
                       );
-                    } else {
-                      return const SizedBox();
-                    }
-                  },
-                ),
+                    }),
+                  );
+                } else if (snapshot.connectionState ==
+                    ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      color: ColorPalettes.freshLemon,
+                    ),
+                  );
+                } else {
+                  return const SizedBox();
+                }
+              },
+            ),
               ],
             ),
           ),
