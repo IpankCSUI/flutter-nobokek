@@ -42,153 +42,100 @@ class _MyContactPageState extends State<MyContactPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Contact Us'),
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.only(left: 24.0, right: 24.0, top: 24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+        child: YellowButton(
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    scrollable: true,
+                    title: const Text('Apa Kendalamu?'),
+                    content: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Form(
+                        child: Column(
+                          children: <Widget>[
+                            TextFormField(
+                              onChanged: (value) {
+                                alamat = value;
+                              },
+                              decoration: const InputDecoration(
+                                labelText: 'Email',
+                                icon: Icon(Icons.email),
+                              ),
+                            ),
+                            TextFormField(
+                              onChanged: (value) {
+                                masalah = value;
+                              },
+                              decoration: const InputDecoration(
+                                labelText: 'Problem',
+                                icon: Icon(Icons.report_problem),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    actions: [
+                      YellowButton(
+                          label: "Submit",
+                          onPressed: () {
+                            if (alamat != null && masalah != null) {
+                              final data = {
+                                "alamat": alamat,
+                                "masalah": masalah,
+                              };
+                              NoBokekApi.addProblem(context, data);
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const MainPage(
+                                      page: 5,
+                                    ),
+                                  ),
+                                  (route) => false);
+                            }
+                          }),
+                    ],
+                  );
+                });
+          },
+          label: "Tekan ini untuk mengirim masalah",
+        ),
       ),
-      body: Form(
-        key: _formKey,
-        child: SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              children: [
-                Padding(
-                  // Menggunakan padding sebesar 8 pixels
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      icon: Icon(Icons.people),
-                      hintText: "Contoh: Rafli Wasis Anggito",
-                      labelText: "Nama",
-                      // Menambahkan icon agar lebih intuitif
-                      // Menambahkan circular border agar lebih rapi
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                    ),
-                    // Menambahkan behavior saat nama diketik
-                    onChanged: (String? value) {
-                      setState(() {
-                        nama = value!;
-                      });
-                    },
-                    // Menambahkan behavior saat data disimpan
-                    onSaved: (String? value) {
-                      setState(() {
-                        nama = value!;
-                      });
-                    },
-                    // Validator sebagai validasi form
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Nama tidak boleh kosong!';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                Padding(
-                  // Menggunakan padding sebesar 8 pixels
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      icon: Icon(Icons.email),
-                      hintText: "Contoh: rafli_wasis@gmail.com",
-                      labelText: "Email",
-                      // Menambahkan icon agar lebih intuitif
-                      // Menambahkan circular border agar lebih rapi
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                    ),
-                    // Menambahkan behavior saat nama diketik
-                    onChanged: (String? value) {
-                      setState(() {
-                        alamat = value!;
-                      });
-                    },
-                    // Menambahkan behavior saat data disimpan
-                    onSaved: (String? value) {
-                      setState(() {
-                        alamat = value!;
-                      });
-                    },
-                    // Validator sebagai validasi form
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Email tidak boleh kosong!';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                Padding(
-                  // Menggunakan padding sebesar 8 pixels
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      icon: Icon(Icons.report_problem),
-                      hintText: "Contoh: Uang tidak bertambah",
-                      labelText: "Kendala",
-                      // Menambahkan icon agar lebih intuitif
-                      // Menambahkan circular border agar lebih rapi
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                    ),
-                    // Menambahkan behavior saat nama diketik
-                    onChanged: (String? value) {
-                      setState(() {
-                        masalah = value!;
-                      });
-                    },
-                    // Menambahkan behavior saat data disimpan
-                    onSaved: (String? value) {
-                      setState(() {
-                        masalah = value!;
-                      });
-                    },
-                    // Validator sebagai validasi form
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Kendala tidak boleh kosong!';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                TextFormField(
-                  controller: dateInput,
-                  decoration: InputDecoration(
-                    icon: Icon(Icons.calendar_today),
-                    labelText: "Masukkan tanggal",
-                  ),
-                  readOnly: true,
-                  onTap: () async {
-                    DateTime? pickedDate = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(1950),
-                        lastDate: DateTime(2100));
-                    if (pickedDate != null) {
-                      String formattedDate =
-                          DateFormat('dd-MM-yyy').format(pickedDate);
-                      setState(() {
-                        dateInput.text = formattedDate;
-                      });
-                    } else {}
-                  },
-                ),
-                YellowButton(
-                  label: "Send",
-                  onPressed: () {
-                    if (alamat != null && masalah != null) {
-                      final data = {
-                        "alamat": alamat,
-                        "masalah": masalah,
-                      };
-                      NoBokekApi.addProblem(context, data);
+      Text(
+        "Daftar Kendala",
+        style: Theme.of(context)
+            .textTheme
+            .subtitle1!
+            .copyWith(fontWeight: FontWeight.w500),
+      ),
+      FutureBuilder(
+        future: NoBokekApi.fetchContact(context),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done &&
+              snapshot.hasData) {
+            return ListView.builder(
+              shrinkWrap: true,
+              primary: false,
+              itemCount: snapshot.data!.length,
+              itemBuilder: ((context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 5.0),
+                  child: TargetCard(
+                    title: snapshot.data![index].fields.alamat,
+                    message: snapshot.data![index].fields.masalah,
+                    onPressed: () {
+                      NoBokekApi.deleteTarget(
+                          context, snapshot.data![index].pk);
                       Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
@@ -197,56 +144,26 @@ class _MyContactPageState extends State<MyContactPage> {
                             ),
                           ),
                           (route) => false);
-                    }
-                  }),
-            FutureBuilder(
-              future: NoBokekApi.fetchContact(context),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done &&
-                    snapshot.hasData) {
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    primary: false,
-                    itemCount: snapshot.data!.length,
-                    itemBuilder: ((context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 5.0),
-                        child: TargetCard(
-                          title: snapshot.data![index].fields.alamat,
-                          message: snapshot.data![index].fields.masalah,
-                          onPressed: () {
-                            NoBokekApi.deleteTarget(
-                                context, snapshot.data![index].pk);
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const MainPage(
-                                    page: 5,
-                                  ),
-                                ),
-                                (route) => false);
-                          },
-                        ),
-                      );
-                    }),
-                  );
-                } else if (snapshot.connectionState ==
-                    ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(
-                      color: ColorPalettes.freshLemon,
-                    ),
-                  );
-                } else {
-                  return const SizedBox();
-                }
-              },
-            ),
-              ],
-            ),
-          ),
-        ),
+                    },
+                  ),
+                );
+              }),
+            );
+          } else if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: ColorPalettes.freshLemon,
+              ),
+            );
+          } else {
+            return const SizedBox();
+          }
+        },
+      ),
+      ]
+      ),
       ),
     );
+
   }
 }
