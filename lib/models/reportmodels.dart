@@ -1,32 +1,61 @@
 // To parse this JSON data, do
 //
-//     final money = moneyFromJson(jsonString);
+//     final target = targetFromJson(jsonString);
+
+import 'dart:convert';
+
+List<Target> targetFromJson(String str) => List<Target>.from(json.decode(str).map((x) => Target.fromJson(x)));
+
+String targetToJson(List<Target> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Target {
-  final int pk;
-  final int user;
-  final String title;
-  final String desc;
-  final bool isFinished;
+    Target({
+        required this.model,
+        required this.pk,
+        required this.fields,
+    });
 
-  Target({
-    required this.user,
-    required this.pk,
-    required this.title,
-    required this.desc,
-    required this.isFinished,
-  });
+    String model;
+    int pk;
+    Fields fields;
 
-  factory Target.fromJson(Map<String, dynamic> json) => Target(
+    factory Target.fromJson(Map<String, dynamic> json) => Target(
+        model: json["model"],
         pk: json["pk"],
-        user: json["fields"]["user"],
-        title: json["fields"]["title"],
-        desc: json["fields"]["description"],
-        isFinished: json["fields"]["is_finished"],
-      );
+        fields: Fields.fromJson(json["fields"]),
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
+        "model": model,
+        "pk": pk,
+        "fields": fields.toJson(),
+    };
+}
+
+class Fields {
+    Fields({
+        required this.user,
+        required this.title,
+        required this.description,
+        required this.isFinished,
+    });
+
+    int user;
+    String title;
+    String description;
+    bool isFinished;
+
+    factory Fields.fromJson(Map<String, dynamic> json) => Fields(
+        user: json["user"],
+        title: json["title"],
+        description: json["description"],
+        isFinished: json["is_finished"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "user": user,
         "title": title,
-        "description": desc,
-      };
+        "description": description,
+        "is_finished": isFinished,
+    };
 }

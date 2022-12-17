@@ -56,18 +56,17 @@ class NoBokekApi {
       return null;
     }
   }
-
-  static Future<List<ContactList>?> fetchContact(BuildContext context) async {
+  static Future<List<Contact>?> fetchContact(BuildContext context) async {
     const url = "https://nobokekk.up.railway.app/nobokek/json/";
     final request = Provider.of<CookieRequest>(context, listen: false);
-    List<ContactList> listContact = [];
+    List<Contact> listTarget = [];
     try {
       final response = await request.get(url) as List<dynamic>;
       for (var i = 0; i < response.length; i++) {
-        final contact = ContactList.fromJson(response[i]);
-        listContact.add(contact);
+        final target = Contact.fromJson(response[i]);
+        listTarget.add(target);
       }
-      return listContact;
+      return listTarget;
     } catch (error) {
       log("ERROR: $error");
       return null;
@@ -186,7 +185,7 @@ static Future<void> addForum(
     BuildContext context,
     Map<String, dynamic> data,
   ) async {
-    const url = "https://nobokekk.up.railway.app/nobokek/create_problem//";
+    const url = "https://nobokekk.up.railway.app/nobokek/create_problem/";
     final request = Provider.of<CookieRequest>(context, listen: false);
     try {
       await request.post(url, data);

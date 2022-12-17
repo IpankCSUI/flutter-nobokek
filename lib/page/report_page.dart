@@ -263,8 +263,8 @@ class _MyReportPageState extends State<MyReportPage> {
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5.0),
                         child: TargetCard(
-                          title: snapshot.data![index].title,
-                          message: snapshot.data![index].desc,
+                          title: snapshot.data![index].fields.title,
+                          message: snapshot.data![index].fields.description,
                           onPressed: () {
                             NoBokekApi.deleteTarget(
                                 context, snapshot.data![index].pk);

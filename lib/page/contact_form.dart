@@ -180,73 +180,68 @@ class _MyContactPageState extends State<MyContactPage> {
                     } else {}
                   },
                 ),
-                TextButton(
-                    child: const Text(
-                      "Send",
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.green),
-                      padding: MaterialStateProperty.all<EdgeInsets>(
-                          EdgeInsets.all(16)),
-                    ),
-                    onPressed: () {
-                      if (nama != null &&
-                          alamat != null &&
-                          masalah != null) {
-                        final data = {
-                          "alamat": alamat,
-                          "masalah": masalah,
-                        };
-                        NoBokekApi.addProblem(context, data);
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
+                YellowButton(
+                  label: "Send",
+                  onPressed: () {
+                    if (alamat != null && masalah != null) {
+                      final data = {
+                        "alamat": alamat,
+                        "masalah": masalah,
+                      };
+                      NoBokekApi.addProblem(context, data);
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
                             builder: (context) => const MainPage(
                               page: 5,
                             ),
                           ),
-                            (route) => false);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Data berhasil disimpan!'),
-                            backgroundColor: Colors.green,
-                          ),
-                        );
-                      }
-                    }),
-                FutureBuilder(
-                  future: NoBokekApi.fetchContact(context),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done &&
-                        snapshot.hasData) {
-                      return ListView.builder(
-                        shrinkWrap: true,
-                        primary: false,
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: ((context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 5.0),
-                            child: ContactCard(
-                              alamat: snapshot.data![index].alamat,
-                              masalah: snapshot.data![index].masalah,
-                              onPressed: () {},
-                            ),
-                          );
-                        }),
-                      );
-                    } else if (snapshot.connectionState ==
-                        ConnectionState.waiting) {
-                      return const Center(
-                        child: CircularProgressIndicator(
-                          color: ColorPalettes.freshLemon,
+                          (route) => false);
+                    }
+                  }),
+            FutureBuilder(
+              future: NoBokekApi.fetchContact(context),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done &&
+                    snapshot.hasData) {
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    primary: false,
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: ((context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5.0),
+                        child: TargetCard(
+                          title: snapshot.data![index].fields.alamat,
+                          message: snapshot.data![index].fields.masalah,
+                          onPressed: () {
+                            NoBokekApi.deleteTarget(
+                                context, snapshot.data![index].pk);
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const MainPage(
+                                    page: 5,
+                                  ),
+                                ),
+                                (route) => false);
+                          },
                         ),
                       );
-                    } else {
-                      return const SizedBox();
-                    }
-                  },
-                ),
+                    }),
+                  );
+                } else if (snapshot.connectionState ==
+                    ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      color: ColorPalettes.freshLemon,
+                    ),
+                  );
+                } else {
+                  return const SizedBox();
+                }
+              },
+            ),
               ],
             ),
           ),
